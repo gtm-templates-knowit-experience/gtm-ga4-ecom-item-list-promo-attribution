@@ -7,7 +7,7 @@ This Variable for **GTM (Web)** makes it possible to attribute GA4 Item List & P
 * Attribution Time (for how long should Item List or Promotion be attributed)
 * Can handle attributed data as both array & string
 
-A similar Variable do also exist for [**Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). That variable is recommended before this one, since everything is handled outside the users browser, and works across (sub)domains.
+A similar Variable do also exist for [**Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). The Server-side Variable is recommended before the Web Variable, since everything is handled outside the users browser (browser doesn't have to do any reading or writing), and it works across (sub)domains. However, costs may occur with the Server-side Variable.
 
 In the following documentation, **Local Storage** will be used to handle the attribution, but there are also other storage methods to consider:
 
@@ -142,7 +142,7 @@ The following Parameters should be changed in the Tags with those Events:
 
 ![GA4 Tag - Parameters](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-GA4-Tag.png)
 
-* **Your GTM (Web) setup is now complete!**
+Your GTM (Web) setup is now complete, but you can do even more to control attribution. If the case is that customers usually do several purchases within a session, then you maybe want to delete attribution data after each purchase.
 
 ## Web implementation
 To make the attribution work, also the implementation on the website must be correct. It’s especially implementation of Item List that can be incorrect.
