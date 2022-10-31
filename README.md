@@ -47,7 +47,7 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 *	**Action:** get
 *	**Key:** internal
 
-Image of Variable here.
+![ecom - item_list & promotion - Local Storage](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Variable-Local-Storage.png)
 
 * Name the Variable **ecom - item_list & promotion - Local Storage**.
 
@@ -101,7 +101,7 @@ Create a **Custom Event Trigger** with the following settings:
 *	**This trigger fires on:* Some Custom Events
 *	**ecom – item_list & promotion – extract – CT** _does not equal_ undefined
 
-Image of Trigger here.
+![ecom - select_item, select_promotion & add_to_cart](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Trigger-Local-Storage-Tag.png)
 
 *	Name the Trigger **ecom - select_item, select_promotion & add_to_cart**.
 
@@ -114,7 +114,7 @@ Select the **Local Storage Interact** Tag, and add the following settings:
 * **Key:** internal
 * **Value:** {{ecom - item_list & promotion - extract - CT}}
 
-Image of Tag setup here
+![Ecom - Item List & Promotion Attribution – Local Storage](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-Local-Storage.png)
 
 * Add **ecom - select_item, select_promotion & add_to_cart** as a Trigger to the Tag.
 
@@ -140,7 +140,7 @@ The following Parameters should be changed in the Tags with those Events:
 | creative_slot | {{ecom - promo - creative_slot - merge - CT}} |
 | location_id | {{ecom - location_id - merge - CT}} |	
 
-Image of example setup here.
+![GA4 Tag - Parameters](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-GA4-Tag.png)
 
 * **Your GTM (Web) setup is now complete!**
 
