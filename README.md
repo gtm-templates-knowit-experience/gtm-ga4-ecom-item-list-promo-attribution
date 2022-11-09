@@ -128,6 +128,7 @@ All GA4 Ecommerce Tags that should use attributed data have to be changed. These
 * view_cart
 * remove_from_cart
 * add_to_cart
+* add_to_wishlist
 * view_item
 
 The following Parameters should be changed in the Tags with those Events:
