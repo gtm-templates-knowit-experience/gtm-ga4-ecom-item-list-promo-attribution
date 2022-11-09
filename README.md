@@ -125,6 +125,7 @@ All GA4 Ecommerce Tags that should use attributed data have to be changed. These
 * add_payment_info
 * add_shipping_info
 * begin_checkout
+* view_cart
 * remove_from_cart
 * add_to_cart
 * view_item
