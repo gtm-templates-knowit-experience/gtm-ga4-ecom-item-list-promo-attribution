@@ -1,4 +1,4 @@
-# GA4 - Item List & Promotion Attribution - GTM (Web) Variable
+# GA4 - Item List & Promotion Attribution - GTM Variable (Web)
 **Google Analytics 4 (GA4)** has **Item List & Promotion reports**. But, unlike **Enhanced Ecommerce**, no revenue or conversions are attributed back to Promotion or Item Lists (at the time of creating this solution).
 
 This Variable for **GTM (Web)** makes it possible to attribute GA4 Item List & Promotion to revenue or ecommerce Events (ex. purchase):
@@ -7,12 +7,23 @@ This Variable for **GTM (Web)** makes it possible to attribute GA4 Item List & P
 * Attribution Time (for how long should Item List or Promotion be attributed)
 * Can handle attributed data as both array & string
 
-A similar Variable do also exist for [**Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). The Server-side Variable is recommended before the Web Variable, since everything is handled outside the users browser (browser doesn't have to do any reading or writing), and it works across (sub)domains. However, costs may occur with the Server-side Variable.
+![GA4 Item List Attribution example](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ga4-item-list-attribution.png)
+
+A similar Variable do also exist for [**Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). Differences between doing the attribution with GTM (Web) vs. Server-side GTM are listed below.
+
+| Functionality  | GTM (Web) | Server-side GTM |
+| ------------- | ------------- | ------------- |
+| Cross (Sub) Domain Tracking | No | Yes |
+| Incognito browsing | May not work | Yes |
+| Works with Measurement Protocol | No | Yes |
+| May affect website speed | Yes, since everything happens in the users browser | No |
+| Storage Limitation | Yes | No |
+| Costs Money | No | Yes |
 
 In the following documentation, **Local Storage** will be used to handle the attribution, but there are also other storage methods to consider:
 
 * [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-* [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+* [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) (Not recommended due to very limited storage capacity)
 * [Session Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 * [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 
@@ -20,7 +31,7 @@ Make sure you understand pros & cons for the different storage methods before pi
 
 ## GTM (Web) Setup
 Install the following GTM (Web) Templates:
-* GA4 Ecommerce - Item List & Promotion Attribution (this Variable Template)
+* GA4 - Item List & Promotion Attribution (this Variable Template)
 *	[Local Storage Interact](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/gtm-local-storage-interact) Tag
 * [Local Storage Checker](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/local-storage-checker) Variable
 
@@ -63,7 +74,7 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (thi
   * **Handle data as string:** This will save attribution data as a string. Tick this box with this setup.
   * **Limit Items:** This will limit number of Items stored. You should probably limit number of items, but that is up to you. You can store up to 5MB in Local Storage.
 
-![ecom - item_list & promotion - extract – CT](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ecom-item_list-and-promotion-extract-CT.png)
+![ecom - item_list & promotion - extract – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-item_list-and-promotion-extract-CT.png)
 
 * Name the Variable **ecom - item_list & promotion - extract – CT**.
 
@@ -73,15 +84,16 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
 
 * **Variable Type:** Return Attributed Output
 * **Output:** Items
+* **Remove null or empty values from Items:** Check this box if your implementation have Item Dimensions with null, "null", "undefined" or empty values.
 * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
   * **Attribution Time in Minutes:** {{ecom - attribution time - minutes – C}}
 
-![ecom - items - item_list & promotion - merge – CT](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ecom-items-item_list-and-promotion-merge-CT.png)
+![ecom - items - item_list & promotion - merge – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
 
 *	Name the Variable **ecom - items - item_list & promotion - merge – CT**.
 
-In addition, you should create **Promotion Variables** using the same Variable Type:
+In addition, you should create **Promotion Variables** using the same Variable Type if you have implemented **Promotion without Items**:
 
 | Variable Name  | Output |
 | ------------- | ------------- |
@@ -119,28 +131,30 @@ Select the **Local Storage Interact** Tag, and add the following settings:
 * Add **ecom - select_item, select_promotion & add_to_cart** as a Trigger to the Tag.
 
 ### GA4 Tag – Parameters
-All GA4 Ecommerce Tags that should use attributed data have to be changed. These are the GA4 Events that should use attributed data:
+All GA4 Ecommerce Tags that should use attributed data have to be changed. These are the recommended GA4 Events:
 
-* purchase
+* purchase *
 * add_payment_info
 * add_shipping_info
-* begin_checkout
+* begin_checkout *
 * view_cart
 * remove_from_cart
-* add_to_cart
+* add_to_cart *
 * add_to_wishlist
 * view_item
 
+These Events are necessary *
+
 The following Parameters should be changed in the Tags with those Events:
 
-| Parameter Name  | Value |
-| ------------- | ------------- |
-| items | {{ecom - items - item_list & promotion - merge - CT}} |
-| promotion_name | {{ecom - promo - promotion_name - merge - CT}} |
-| promotion_id | {{ecom - promo - promotion_id - merge - CT}} |
-| creative_name | {{ecom - promo - creative_name - merge - CT}} |	
-| creative_slot | {{ecom - promo - creative_slot - merge - CT}} |
-| location_id | {{ecom - location_id - merge - CT}} |	
+| Parameter Name  | Value | Note |
+| ------------- | ------------- | ------------- |
+| items | {{ecom - items - item_list & promotion - merge - CT}} |  |
+| promotion_name | {{ecom - promo - promotion_name - merge - CT}} | If Promotion without Items is implemented |
+| promotion_id | {{ecom - promo - promotion_id - merge - CT}} | If Promotion without Items is implemented |
+| creative_name | {{ecom - promo - creative_name - merge - CT}} |	 If Promotion without Items is implemented |
+| creative_slot | {{ecom - promo - creative_slot - merge - CT}} | If Promotion without Items is implemented |
+| location_id | {{ecom - location_id - merge - CT}} |	 If Promotion without Items is implemented |
 
 ![GA4 Tag - Parameters](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-GA4-Tag.png)
 
@@ -154,7 +168,7 @@ To make the attribution work, also the implementation on the website must be cor
 
 When it comes to filling out the **location_id** parameter, if you don’t have **Place ID** as Google suggest using, fill this parameter with **Page Path** instead. Then you will get Page Path attributed as well.
 
-The GA4 Event documentation allows for implementation of Item List and Promotion on both the Event-level and Item-level. This Template supports both implementations.
+The GA4 Event documentation allows for implementation of **Item List and Promotion** on both the **Event-level** and **Item-level**. This Template supports both implementations.
 
 ### Promotion implementation
 It’s recommended to implement all promotion parameters, but as a minimum for this attribution to work you must implement either **promotion_id** or **promotion_name** with the **[select_promotion](https://developers.google.com/analytics/devguides/collection/ga4/reference/events#select_promotion)** Event.
