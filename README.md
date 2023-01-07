@@ -16,7 +16,7 @@ A similar Variable do also exist for [**Server-side GTM**](https://github.com/gt
 | Cross (sub)domain tracking | No | Yes |
 | Storage in Incognito Mode | Depends on browser | Yes |
 | Server to Server-side (Measurement Protocol) | No | Yes |
-| May affect website speed | Everything happens in the users browser | No |
+| Attribution/processing | Users browser | Server-side |
 | Storage Limitation | Yes | No |
 | Costs Money | No | Yes |
 
