@@ -20,14 +20,7 @@ A similar Variable [do also exist for **Server-side GTM**](https://github.com/gt
 | Storage Limitation | Yes | No |
 | Costs Money | No | Yes |
 
-In the following documentation, **Local Storage** will be used to handle the attribution, but there are also other storage methods to consider:
-
-* [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-* [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
-* [Session Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
-* [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-
-Make sure you understand pros & cons for the different storage methods before picking one.
+In the following documentation, **Local Storage** will be used to handle the attribution.
 
 ## GTM (Web) Setup
 Install the following GTM (Web) Templates:
@@ -63,7 +56,7 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 * Name the Variable **ecom - item_list & promotion - Local Storage**.
 
 ### ecom - item_list & promotion - extract – CT
-Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion dat**a from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
+Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
 *	**Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
@@ -95,7 +88,7 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
 
 *	Name the Variable **ecom - items - item_list & promotion - merge – CT**.
 
-In addition, you should create **Promotion & Search Term Variables** using the same Variable Type if you have implemented **Promotion without Items**, or if you want to attribute Search Term:
+In addition, you must create **Promotion & Search Term Variables** using the same Variable Type if you have implemented **Promotion without Items**, or if you want to attribute Search Term:
 
 | Variable Name  | Output |
 | ------------- | ------------- |
@@ -132,7 +125,7 @@ Select the **Local Storage Interact** Tag, and add the following settings:
 ![Ecom - Item List & Promotion Attribution – Local Storage](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-Local-Storage.png)
 
 * Add **ecom - select_item, select_promotion & add_to_cart** as a Trigger to the Tag.
-* * If you want to track **search_term**, add the same Trigger as you are using for tracking **view_search_results** Event.
+* * If you want to track **search_term**, add the same Trigger as you are using for tracking your **view_search_results** Event.
 
 ### GA4 Tag – Parameters
 All GA4 Ecommerce Tags that should use attributed data have to be changed. These are the recommended GA4 Events:
