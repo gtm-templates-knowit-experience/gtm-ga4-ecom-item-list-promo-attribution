@@ -5,7 +5,6 @@ This Variable for **GTM (Web)** makes it possible to attribute **GA4 Item List, 
 * Last Click Attribution
 * First Click Attribution
 * Attribution Time (for how long should Item List, Promotion or Search Term be attributed)
-* Can handle attributed data as both array & string
 
 ![GA4 Item List Attribution example](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ga4-item-list-attribution-animation.gif)
 
@@ -16,6 +15,7 @@ A similar Variable [do also exist for **Server-side GTM**](https://github.com/gt
 | Cross (sub)domain tracking | No | Yes |
 | Server to Server-side (Measurement Protocol) | No | Yes |
 | Attribution/processing | Users browser | Server-side |
+| Attribution time | Custom Time | GA4 Session or Custom Time |
 | Storage Limitation | Yes | No |
 | Costs Money | No | Yes |
 
