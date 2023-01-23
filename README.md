@@ -1,7 +1,7 @@
 # GA4 - Item List & Promotion Attribution - GTM Variable (Web)
 **Google Analytics 4 (GA4)** has **Item List & Promotion reports**. But, unlike **Enhanced Ecommerce**, no revenue or conversions are attributed back to Promotion or Item Lists (at the time of creating this solution).
 
-This Variable for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase):
+This Variable Template for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase):
 * Last Click Attribution
 * First Click Attribution
 * Attribution Time (for how long should Item List, Promotion or Search Term be attributed)
