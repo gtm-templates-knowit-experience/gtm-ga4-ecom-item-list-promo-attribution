@@ -31,13 +31,13 @@ Install the following GTM (Web) Templates:
 
 ### Create Variables
 We must create a decent number of Variables. Suggested Variable names are listed below, and are also used throughout the documentation.
-*	ecom - attribution time - minutes – C
+*	ecom - attribution time - minutes - C
 *	ecom - item_list & promotion - Local Storage
-*	ecom - item_list & promotion - extract – CT
-*	ecom - items - item_list & promotion - merge – CT
+*	ecom - item_list & promotion - extract - CT
+*	ecom - items - item_list & promotion - merge - CT
 *	++
 
-### ecom - attribution time - minutes – C
+### ecom - attribution time - minutes - C
 Since attribution time is referenced in several variables, it’s recommended to create a Constant Variable with the attribution time in minutes.
 How long the attribution time should be is up to you. Time is counted from the last **select_promotion**, **select_item** or **add_to_cart** Event. 
 
@@ -56,13 +56,13 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 
 * Name the Variable **ecom - item_list & promotion - Local Storage**.
 
-### ecom - item_list & promotion - extract – CT
+### ecom - item_list & promotion - extract - CT
 Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
 *	**Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
-  * **Attribution Time in Minutes:** {{ecom - attribution time - minutes – C}}
+  * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
   * **Attribution Type:** Select Last or First Click Attribution
 * Site Search
   * **Search Term:** Insert Variable that contains **search_term** value, ex. **{{search_term - Query}}**.
@@ -72,9 +72,9 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (thi
 
 ![ecom - item_list & promotion - extract – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-item_list-and-promotion-extract-CT.png)
 
-* Name the Variable **ecom - item_list & promotion - extract – CT**.
+* Name the Variable **ecom - item_list & promotion - extract - CT**.
 
-### ecom - items - item_list & promotion - merge – CT
+### ecom - items - item_list & promotion - merge - CT
 
 Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (this Template). This Variable merges Implemented data & data from Second Data Source (ex. Local Storage).
 
@@ -83,11 +83,11 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
 * **Remove null or empty values from Items:** Check this box if your implementation have Item Dimensions with null, "null", "undefined" or empty values.
 * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
-  * **Attribution Time in Minutes:** {{ecom - attribution time - minutes – C}}
+  * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
 
 ![ecom - items - item_list & promotion - merge – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
 
-*	Name the Variable **ecom - items - item_list & promotion - merge – CT**.
+*	Name the Variable **ecom - items - item_list & promotion - merge - CT**.
 
 In addition, you must create **Promotion & Search Term Variables** using the same Variable Type if you have implemented **Promotion without Items**, or if you want to attribute Search Term:
 
@@ -96,8 +96,8 @@ In addition, you must create **Promotion & Search Term Variables** using the sam
 | ecom - location_id - merge - CT | Location ID |
 | ecom - promo - creative_name - merge - CT | Creative Name |
 | ecom - promo - creative_slot - merge - CT | Creative Slot |
-| ecom - promo - promotion_id – merge - CT | Promotion ID |	
-| ecom - promo - promotion_name – merge - CT | Promotion Name |	
+| ecom - promo - promotion_id - merge - CT | Promotion ID |	
+| ecom - promo - promotion_name - merge - CT | Promotion Name |	
 | ecom - search_term - merge - CT | Search Term |	
 
 ## Trigger
