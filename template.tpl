@@ -158,6 +158,34 @@ ___TEMPLATE_PARAMETERS___
         "groupStyle": "NO_ZIPPY",
         "subParams": [
           {
+            "type": "CHECKBOX",
+            "name": "customAttributionTime",
+            "checkboxText": "Custom Attribution Time",
+            "simpleValueType": true,
+            "alwaysInSummary": true,
+            "help": "As standard, attribution time is the same as a \u003cstrong\u003e\u003ca href\u003d\"https://support.google.com/analytics/answer/9191807\" target\u003d\"_blank\"\u003eGA4 Session\u003c/a\u003e\u003c/strong\u003e, but you can choose a \u003cstrong\u003ecustom attribution time\u003c/strong\u003e if that better fits your users behaviour."
+          },
+          {
+            "type": "TEXT",
+            "name": "measurementId",
+            "displayName": "Measurement ID",
+            "simpleValueType": true,
+            "enablingConditions": [
+              {
+                "paramName": "customAttributionTime",
+                "paramValue": false,
+                "type": "EQUALS"
+              }
+            ],
+            "help": "Enter the \u003cstrong\u003eMeasurement ID\u003c/strong\u003e (e.g, G-A2ABC2ABCD) for your \u003cstrong\u003eGA4 property\u003c/strong\u003e. \u003ca href\u003d\"https://support.google.com/analytics/answer/9310895\" target\u003d\"_blank\"\u003eLearn more\u003c/a\u003e\n\u003cbr /\u003e\u003cbr /\u003e\nThis must be the same \u003cstrong\u003eMeasurement ID\u003c/strong\u003e as the one used in the \u003cstrong\u003eGA4 Configuration Tag\u003c/strong\u003e.",
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ],
+            "alwaysInSummary": true
+          },
+          {
             "type": "TEXT",
             "name": "attributionTime",
             "displayName": "Attribution Time in Minutes",
@@ -173,7 +201,14 @@ ___TEMPLATE_PARAMETERS___
             ],
             "valueHint": "30",
             "valueUnit": "minutes",
-            "alwaysInSummary": true
+            "alwaysInSummary": true,
+            "enablingConditions": [
+              {
+                "paramName": "customAttributionTime",
+                "paramValue": true,
+                "type": "EQUALS"
+              }
+            ]
           },
           {
             "type": "RADIO",
@@ -197,7 +232,7 @@ ___TEMPLATE_PARAMETERS___
                 "type": "EQUALS"
               }
             ],
-            "help": "\u003cstrong\u003eLast Click Attribution\u003c/strong\u003e \u003cbr /\u003e With Last Click Attribution, the Last Click on an Item List or a Promotion will be attributed. \u003cbr /\u003e\u003cbr /\u003e See \u003ca href\u003d\"https://github.com/gtm-templates-knowit-experience/sgtm-ga4-item-list-promo-attribution\" target\u003d\"_blank\"\u003e\u003cstrong\u003ethe documentation\u003c/strong\u003e\u003c/a\u003e for detailed explanation of attribution. \u003cbr /\u003e\u003cbr /\u003e \u003cstrong\u003eFirst Click Attribution\u003c/strong\u003e \u003cbr /\u003e With First Click Attribution, the First Click on an Item List or a Promotion will be attributed."
+            "help": "\u003cstrong\u003eLast Click Attribution\u003c/strong\u003e \u003cbr /\u003e With Last Click Attribution, the Last Click on an Item List or a Promotion will be attributed. \u003cbr /\u003e\u003cbr /\u003e See \u003ca href\u003d\"https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution\" target\u003d\"_blank\"\u003e\u003cstrong\u003ethe documentation\u003c/strong\u003e\u003c/a\u003e for detailed explanation of attribution. \u003cbr /\u003e\u003cbr /\u003e \u003cstrong\u003eFirst Click Attribution\u003c/strong\u003e \u003cbr /\u003e With First Click Attribution, the First Click on an Item List or a Promotion will be attributed."
           },
           {
             "type": "GROUP",
@@ -315,22 +350,30 @@ const dataLayer = require('copyFromDataLayer');
 const ecom = dataLayer('ecommerce', 1);
 const getTimestampMillis = require('getTimestampMillis');
 const makeInteger = require('makeInteger');
+const makeString = require('makeString');
 const JSON = require('JSON');
+const getCookieValues = require('getCookieValues');
 
 const jsonData = data.jsonData;
 const secondDataSource = data.secondDataSource && typeof data.secondDataSource === 'string' ? JSON.parse(data.secondDataSource) : data.secondDataSource || undefined;
 
-let items = ecom ? ecom.items : undefined;
+const items = ecom ? ecom.items : undefined;
 let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}];
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
 let searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;
-const timestampDiff = secondDataSource ? getTimestampMillis()-secondDataSource.timestamp : 0;
-const attributionTime = makeInteger(data.attributionTime)*60000;
+
+const measurementId = data.measurementId ? data.measurementId.split('-')[1] : undefined;
+let ga_session_id = measurementId ? makeString(getCookieValues('_ga_'+measurementId)) : undefined;
+ga_session_id = ga_session_id.indexOf('.') > -1 ? ga_session_id.split('.')[2] : undefined;
+const timestamp = data.attributionTime ? getTimestampMillis() : makeInteger(ga_session_id);
+const timestamp2 = secondDataSource ? secondDataSource.timestamp : timestamp;
+const timestampDiff = secondDataSource && data.attributionTime ? timestamp-secondDataSource.timestamp : timestamp;
+const attributionTime = data.attributionTime ? makeInteger(data.attributionTime)*60000 : timestamp2;
 const attributionType = data.attributionType;
 const limitItemsNumber = data.limitItemsNumber;
 
 if(timestampDiff > attributionTime) {
-  items2 = undefined;
+  items2 = [{item_id:"helper_id"}];
   promo2 = undefined;
   searchTerm2 = undefined;
 }
@@ -389,7 +432,7 @@ if(data.variableType === 'attribution') {
       if (limitItemsNumber) {
         uniqueItems = uniqueItems.slice(0, limitItemsNumber);
       }      
-      let extract = {items:uniqueItems,promotion:promo2,search_term:searchTerm2,timestamp:getTimestampMillis()}; 
+      let extract = {items:uniqueItems,promotion:promo2,search_term:searchTerm2,timestamp:timestamp}; 
         extract = jsonData && extract ? JSON.stringify(extract) : extract;
           return extract ;    
     }
@@ -399,7 +442,7 @@ if(data.variableType === 'attribution') {
     const promo = {creative_name:creative_name, creative_slot:creative_slot, promotion_id:promotion_id, promotion_name:promotion_name, location_id:location_id};
     
     const promoAttribution = attributionType === 'firstClickAttribution' && promo2 ? promo2 : promo;
-    let extract = {promotion:promoAttribution,items:items2,search_term:searchTerm2,timestamp:getTimestampMillis()};
+    let extract = {promotion:promoAttribution,items:items2,search_term:searchTerm2,timestamp:timestamp};
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
@@ -407,7 +450,7 @@ if(data.variableType === 'attribution') {
   const searchTerm = data.searchTerm ? data.searchTerm : undefined;
   if (searchTerm) {
     const siteSearchttribution = attributionType === 'firstClickAttribution' && searchTerm2 ? searchTerm2: searchTerm;
-    let extract = {search_term:searchTerm,items:items2,promotion:promo2,timestamp:getTimestampMillis()};
+    let extract = {search_term:searchTerm,items:items2,promotion:promo2,timestamp:timestamp};
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
@@ -485,6 +528,27 @@ ___WEB_PERMISSIONS___
       "isEditedByUser": true
     },
     "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "get_cookies",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "cookieAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
   }
 ]
 
@@ -496,5 +560,5 @@ scenarios: []
 
 ___NOTES___
 
-Created on 1/14/2023, 8:08:42 PM
+Created on 1/26/2023, 8:09:35 PM
 
