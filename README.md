@@ -217,7 +217,15 @@ This setup handles **add_to_cart** & **view_item**. **location_id** in this setu
 
 This solution can do either **Last Click** or **First Click Attribution**.
 
-Attribution happens on 2 levels: Promotion without Items (Event-level), and the Item-level. In addition, Item-level trumps the Event-level.
+Attribution happens on 2 levels: 
+1. Event-level
+    - Promotion without Items
+    - Search Term
+2. Item-level
+    - Implemented Items data (ex. Item List name) trumps attributed Items data. Ex. if you are adding a Item to cart directly from a Item List, the implemented Item List Name will be used. If you are adding the Item to cart from a product page (where you shouldn't have a Item List implemented), the attributed Item List Name will be used.
+
+* Item-level trumps the Event-level.
+  * Promotion without Items will not be attributed to a Item when Promotion with Items are attributed 
 
 To get a better understanding of the attribution, it's recommended to run some test scenarios where you inspect your own data:
 * Run **GTM (Web)** in **Preview Mode**
