@@ -1,33 +1,27 @@
 # GA4 - Item List & Promotion Attribution - GTM Variable (Web)
 **Google Analytics 4 (GA4)** has **Item List & Promotion reports**. But, unlike **Enhanced Ecommerce**, no revenue or conversions are attributed back to Promotion or Item Lists (at the time of creating this solution).
 
-This Variable for **GTM (Web)** makes it possible to attribute GA4 Item List & Promotion to revenue or ecommerce Events (ex. purchase):
+This Variable Template for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase):
 * Last Click Attribution
 * First Click Attribution
 * Attribution Time (for how long should Item List or Promotion be attributed)
-* Can handle attributed data as both array & string
+  * Attribution Time can be either **GA4 Session** or **Custom Attribution Time**
 
 ![GA4 Item List Attribution example](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ga4-item-list-attribution-animation.gif)
 
-A similar Variable do also exist for [**Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). Differences between doing the attribution with GTM (Web) vs. Server-side GTM are listed below.
+A similar Variable [do also exist for **Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). Differences between doing the attribution with GTM (Web) vs. Server-side GTM are listed below.
 
 | Functionality  | GTM (Web) | Server-side GTM |
 | ------------- | ------------- | ------------- |
-| Cross (sub)domain tracking | No | Yes |
-| Storage in Incognito Mode | Depends on browser | Yes |
+| Cross (sub)domain tracking | No * | Yes |
 | Server to Server-side (Measurement Protocol) | No | Yes |
 | Attribution/processing | Users browser | Server-side |
 | Storage Limitation | Yes | No |
 | Costs Money | No | Yes |
 
-In the following documentation, **Local Storage** will be used to handle the attribution, but there are also other storage methods to consider:
+\* Cookies can do cross subdomain tracking, but are not very suitable due to very low storage capasity.
 
-* [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-* [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies) (Not recommended due to very limited storage capacity)
-* [Session Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
-* [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-
-Make sure you understand pros & cons for the different storage methods before picking one.
+In the following documentation, **Local Storage** will be used to handle the attribution.
 
 ## GTM (Web) Setup
 Install the following GTM (Web) Templates:
@@ -37,13 +31,16 @@ Install the following GTM (Web) Templates:
 
 ### Create Variables
 We must create a decent number of Variables. Suggested Variable names are listed below, and are also used throughout the documentation.
-*	ecom - attribution time - minutes – C
+*	ecom - attribution time - minutes - C
 *	ecom - item_list & promotion - Local Storage
-*	ecom - item_list & promotion - extract – CT
-*	ecom - items - item_list & promotion - merge – CT
+*	ecom - item_list & promotion - extract - CT
+*	ecom - items - item_list & promotion - merge - CT
 *	++
 
-### ecom - attribution time - minutes – C
+### ecom - attribution time - minutes - C
+As standard, attribution time is the same as a **[GA4 Session](https://support.google.com/analytics/answer/9191807)**, but you can choose a **Custom Attribution Time** if that better fits your users behaviour.
+
+Create this variable if you are going to use **Custom Attribution Time**.
 Since attribution time is referenced in several variables, it’s recommended to create a Constant Variable with the attribution time in minutes.
 How long the attribution time should be is up to you. Time is counted from the last **select_promotion**, **select_item** or **add_to_cart** Event. 
 
@@ -62,23 +59,28 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 
 * Name the Variable **ecom - item_list & promotion - Local Storage**.
 
-### ecom - item_list & promotion - extract – CT
-Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion dat**a from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
+### ecom - item_list & promotion - extract - CT
+Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
 *	**Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
-  * **Attribution Time in Minutes:** {{ecom - attribution time - minutes – C}}
+  * **Custom Attribution Time:** Tick this box if you are using **Custom Attribution Time**
+    * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
+  * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
+    * This setting uses **GA4 Session** as attribution time. GA4 Session value can be found in the **\_ga_\<container-id\>** cookie, and **Measurement ID** is used to get information from that cookie.
   * **Attribution Type:** Select Last or First Click Attribution
+* Site Search
+  * **Search Term:** Insert Variable that contains **search_term** value, ex. **{{search_term - Query}}**.
 * Other Settings
   * **Handle data as string:** This will save attribution data as a string. Tick this box with this setup.
   * **Limit Items:** This will limit number of Items stored. You should probably limit number of items, but that is up to you. You can store up to 5MB in Local Storage.
 
 ![ecom - item_list & promotion - extract – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-item_list-and-promotion-extract-CT.png)
 
-* Name the Variable **ecom - item_list & promotion - extract – CT**.
+* Name the Variable **ecom - item_list & promotion - extract - CT**.
 
-### ecom - items - item_list & promotion - merge – CT
+### ecom - items - item_list & promotion - merge - CT
 
 Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (this Template). This Variable merges Implemented data & data from Second Data Source (ex. Local Storage).
 
@@ -87,21 +89,24 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
 * **Remove null or empty values from Items:** Check this box if your implementation have Item Dimensions with null, "null", "undefined" or empty values.
 * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
-  * **Attribution Time in Minutes:** {{ecom - attribution time - minutes – C}}
+  * **Custom Attribution Time** Tick this box if you are using **Custom Attribution Time**
+     * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
+   * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
 
 ![ecom - items - item_list & promotion - merge – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
 
-*	Name the Variable **ecom - items - item_list & promotion - merge – CT**.
+*	Name the Variable **ecom - items - item_list & promotion - merge - CT**.
 
-In addition, you should create **Promotion Variables** using the same Variable Type if you have implemented **Promotion without Items**:
+In addition, you must create **Promotion & Search Term Variables** using the same Variable Type if you have implemented **Promotion without Items**, or if you want to attribute Search Term:
 
 | Variable Name  | Output |
 | ------------- | ------------- |
 | ecom - location_id - merge - CT | Location ID |
 | ecom - promo - creative_name - merge - CT | Creative Name |
 | ecom - promo - creative_slot - merge - CT | Creative Slot |
-| ecom - promo - promotion_id – merge - CT | Promotion ID |	
-| ecom - promo - promotion_name – merge - CT | Promotion Name |	
+| ecom - promo - promotion_id - merge - CT | Promotion ID |	
+| ecom - promo - promotion_name - merge - CT | Promotion Name |	
+| ecom - search_term - merge - CT | Search Term |	
 
 ## Trigger
 ### ecom - select_item, select_promotion & add_to_cart
@@ -129,6 +134,7 @@ Select the **Local Storage Interact** Tag, and add the following settings:
 ![Ecom - Item List & Promotion Attribution – Local Storage](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-Local-Storage.png)
 
 * Add **ecom - select_item, select_promotion & add_to_cart** as a Trigger to the Tag.
+* * If you want to track **search_term**, add the same Trigger as you are using for tracking your **view_search_results** Event.
 
 ### GA4 Tag – Parameters
 All GA4 Ecommerce Tags that should use attributed data have to be changed. These are the recommended GA4 Events:
@@ -143,7 +149,7 @@ All GA4 Ecommerce Tags that should use attributed data have to be changed. These
 * add_to_wishlist
 * view_item
 
-These Events are necessary *
+These Events are necessary for a complete **GA4 Item lists: Item list name** report *
 
 The following Parameters should be changed in the Tags with those Events:
 
@@ -155,6 +161,7 @@ The following Parameters should be changed in the Tags with those Events:
 | creative_name | {{ecom - promo - creative_name - merge - CT}} |	 If Promotion without Items is implemented |
 | creative_slot | {{ecom - promo - creative_slot - merge - CT}} | If Promotion without Items is implemented |
 | location_id | {{ecom - location_id - merge - CT}} |	 If Promotion without Items is implemented |
+| search_term | {{ecom - search_term - merge - CT}} |	 If you want to attribute search_term |
 
 ![GA4 Tag - Parameters](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-GA4-Tag.png)
 
@@ -210,7 +217,15 @@ This setup handles **add_to_cart** & **view_item**. **location_id** in this setu
 
 This solution can do either **Last Click** or **First Click Attribution**.
 
-Attribution happens on 2 levels: Promotion without Items (Event-level), and the Item-level. In addition, Item-level trumps the Event-level.
+Attribution happens on 2 levels: 
+1. Event-level
+    - Promotion without Items
+    - Search Term
+2. Item-level
+    - Implemented Items data (ex. Item List name) trumps attributed Items data. Ex. if you are adding a Item to cart directly from a Item List, the implemented Item List Name will be used. If you are adding the Item to cart from a product page (where you shouldn't have a Item List implemented), the attributed Item List Name will be used.
+
+* Item-level trumps the Event-level.
+  * Promotion without Items will not be attributed to a Item when Promotion with Items are attributed 
 
 To get a better understanding of the attribution, it's recommended to run some test scenarios where you inspect your own data:
 * Run **GTM (Web)** in **Preview Mode**
