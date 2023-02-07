@@ -4,6 +4,7 @@
 This Variable Template for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase):
 * Last Click Attribution
 * First Click Attribution
+* Reset/delete Attribution Data after Purchase
 * Attribution Time (for how long should Item List or Promotion be attributed)
   * Attribution Time can be either **GA4 Session** or **Custom Attribution Time**
 
@@ -65,6 +66,8 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (thi
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
 *	**Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
+  * **Delete Attribution Data after Purchase:** Tick this box to delete/reset attribution data after a purchase has happened.
+    * You only need this setting for the Variable that attribute Items. Not necessary for Event-level attribution Variables.
   * **Custom Attribution Time:** Tick this box if you are using **Custom Attribution Time**
     * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
   * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
@@ -109,18 +112,19 @@ In addition, you must create **Promotion & Search Term Variables** using the sam
 | ecom - search_term - merge - CT | Search Term |	
 
 ## Trigger
-### ecom - select_item, select_promotion & add_to_cart
+### ecom - attribute Events
 
 Create a **Custom Event Trigger** with the following settings:
 
-*	**Event Name:** ^(select_item|select_promotion|add_to_cart)$
+*	**Event Name:** ^(select_item|select_promotion|add_to_cart|purchase)$
+    * **purchase** Event in RegEx is only needed if you want to delete/reset attribution data after purchase
 *	**Use regex matching:** Tick the box
 *	**This trigger fires on:* Some Custom Events
 *	**ecom – item_list & promotion – extract – CT** _does not equal_ undefined
 
 ![ecom - select_item, select_promotion & add_to_cart](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Trigger-Local-Storage-Tag.png)
 
-*	Name the Trigger **ecom - select_item, select_promotion & add_to_cart**.
+*	Name the Trigger **ecom - attribute Events**.
 
 ## Tags
 
@@ -165,7 +169,7 @@ The following Parameters should be changed in the Tags with those Events:
 
 ![GA4 Tag - Parameters](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-GA4-Tag.png)
 
-Your GTM (Web) setup is now complete, but you can do even more to control attribution. If the case is that customers usually do several purchases within a session, then you maybe want to delete attribution data after each purchase.
+Your GTM (Web) setup is now complete.
 
 ## Web implementation
 To make the attribution work, also the implementation on the website must be correct. It’s especially implementation of Item List that can be incorrect.
