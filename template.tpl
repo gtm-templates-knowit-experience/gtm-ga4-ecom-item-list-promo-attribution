@@ -159,6 +159,21 @@ ___TEMPLATE_PARAMETERS___
         "subParams": [
           {
             "type": "CHECKBOX",
+            "name": "deleteAttribution",
+            "checkboxText": "Delete Attribution Data after Purchase",
+            "simpleValueType": true,
+            "help": "Tick this box if you want attribution data to be deleted/reset after \u003cstrong\u003epurchase\u003c/strong\u003e.",
+            "enablingConditions": [
+              {
+                "paramName": "variableType",
+                "paramValue": "attribution",
+                "type": "EQUALS"
+              }
+            ],
+            "alwaysInSummary": true
+          },
+          {
+            "type": "CHECKBOX",
             "name": "customAttributionTime",
             "checkboxText": "Custom Attribution Time",
             "simpleValueType": true,
@@ -357,6 +372,7 @@ const getCookieValues = require('getCookieValues');
 const jsonData = data.jsonData;
 const secondDataSource = data.secondDataSource && typeof data.secondDataSource === 'string' ? JSON.parse(data.secondDataSource) : data.secondDataSource || undefined;
 
+const event_name = dataLayer('event', 2);
 const items = ecom ? ecom.items : undefined;
 let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}];
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
@@ -499,6 +515,12 @@ else if (data.variableType === 'output') {
   return output;
 }
 
+if(data.deleteAttribution === true && event_name === 'purchase') {
+  let extract = {search_term:undefined,items:[{item_id:"helper_id"}],promotion:undefined,timestamp:timestamp};
+      extract = jsonData && extract ? JSON.stringify(extract) : extract;
+        return extract;
+}
+
 
 ___WEB_PERMISSIONS___
 
@@ -518,6 +540,10 @@ ___WEB_PERMISSIONS___
               {
                 "type": 1,
                 "string": "ecommerce.*"
+              },
+              {
+                "type": 1,
+                "string": "event"
               }
             ]
           }
@@ -560,5 +586,4 @@ scenarios: []
 
 ___NOTES___
 
-Created on 1/26/2023, 8:09:35 PM
-
+Created on 2/7/2023, 9:14:23 PM
