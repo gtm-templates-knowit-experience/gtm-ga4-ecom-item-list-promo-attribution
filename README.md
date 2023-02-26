@@ -64,7 +64,9 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
-*	**Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
+* Data Sources
+  * **Read GA4 Ecommerce data from Variable:** Tick this box if you need to read GA4 Ecommerce data from a Variable.
+  * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
   * **Delete Attribution Data after Purchase:** Tick this box to delete/reset attribution data after a purchase has happened.
     * You only need this setting for the Variable that attribute Items. Not necessary for Event-level attribution Variables.
