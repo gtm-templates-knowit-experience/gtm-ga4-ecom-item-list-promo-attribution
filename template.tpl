@@ -14,7 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "GA4 - Item List \u0026 Promotion Attribution",
-  "description": "Attribute GA4 Item List, Promotion or Search Term to revenue \u0026 ecommerce Events. This Template makes this possible by using ex. Local Storag as a \"helper\". Last \u0026 First Click Attribution supported.",
+  "description": "Attribute GA4 Item List, Promotion or Search Term to revenue \u0026 ecommerce Events. This Template makes this possible by using ex. Local Storage as a \"helper\". Last \u0026 First Click Attribution supported.",
   "categories": [
   "ANALYTICS",
   "UTILITY",
@@ -129,9 +129,36 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "GROUP",
         "name": "secondDataSourceGroup",
-        "displayName": "Second Data Source",
+        "displayName": "Data Sources",
         "groupStyle": "NO_ZIPPY",
         "subParams": [
+          {
+            "type": "CHECKBOX",
+            "name": "ecomInputCheckbox",
+            "checkboxText": "Read GA4 Ecommerce data from Variable",
+            "simpleValueType": true,
+            "alwaysInSummary": true,
+            "help": "Tick this box if you need to read GA4 Ecommerce data from a Variable.\n\u003cbr /\u003e\u003cbr /\u003e\nThe Variable must return a complete ecommerce object, e.g. \u003cstrong\u003eecommerce.items\u003c/strong\u003e"
+          },
+          {
+            "type": "TEXT",
+            "name": "ecomVar",
+            "displayName": "GA4 Ecommerce data input",
+            "simpleValueType": true,
+            "alwaysInSummary": true,
+            "enablingConditions": [
+              {
+                "paramName": "ecomInputCheckbox",
+                "paramValue": true,
+                "type": "EQUALS"
+              }
+            ],
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ]
+          },
           {
             "type": "TEXT",
             "name": "secondDataSource",
@@ -143,7 +170,7 @@ ___TEMPLATE_PARAMETERS___
               }
             ],
             "alwaysInSummary": true,
-            "help": "Insert  variable with Second Data Source (ex. Firestore) in this field"
+            "help": "Insert  variable with Second Data Source (ex. Local Storage or Cookie) in this field"
           }
         ]
       },
@@ -182,26 +209,6 @@ ___TEMPLATE_PARAMETERS___
           },
           {
             "type": "TEXT",
-            "name": "measurementId",
-            "displayName": "Measurement ID",
-            "simpleValueType": true,
-            "enablingConditions": [
-              {
-                "paramName": "customAttributionTime",
-                "paramValue": false,
-                "type": "EQUALS"
-              }
-            ],
-            "help": "Enter the \u003cstrong\u003eMeasurement ID\u003c/strong\u003e (e.g, G-A2ABC2ABCD) for your \u003cstrong\u003eGA4 property\u003c/strong\u003e. \u003ca href\u003d\"https://support.google.com/analytics/answer/9310895\" target\u003d\"_blank\"\u003eLearn more\u003c/a\u003e\n\u003cbr /\u003e\u003cbr /\u003e\nThis must be the same \u003cstrong\u003eMeasurement ID\u003c/strong\u003e as the one used in the \u003cstrong\u003eGA4 Configuration Tag\u003c/strong\u003e.",
-            "valueValidators": [
-              {
-                "type": "NON_EMPTY"
-              }
-            ],
-            "alwaysInSummary": true
-          },
-          {
-            "type": "TEXT",
             "name": "attributionTime",
             "displayName": "Attribution Time in Minutes",
             "simpleValueType": true,
@@ -224,6 +231,26 @@ ___TEMPLATE_PARAMETERS___
                 "type": "EQUALS"
               }
             ]
+          },
+          {
+            "type": "TEXT",
+            "name": "measurementId",
+            "displayName": "Measurement ID",
+            "simpleValueType": true,
+            "enablingConditions": [
+              {
+                "paramName": "customAttributionTime",
+                "paramValue": false,
+                "type": "EQUALS"
+              }
+            ],
+            "help": "Enter the \u003cstrong\u003eMeasurement ID\u003c/strong\u003e (e.g, G-A2ABC2ABCD) for your \u003cstrong\u003eGA4 property\u003c/strong\u003e. \u003ca href\u003d\"https://support.google.com/analytics/answer/9310895\" target\u003d\"_blank\"\u003eLearn more\u003c/a\u003e\n\u003cbr /\u003e\u003cbr /\u003e\nThis must be the same \u003cstrong\u003eMeasurement ID\u003c/strong\u003e as the one used in the \u003cstrong\u003eGA4 Configuration Tag\u003c/strong\u003e.",
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ],
+            "alwaysInSummary": true
           },
           {
             "type": "RADIO",
@@ -318,7 +345,7 @@ ___TEMPLATE_PARAMETERS___
                 "name": "limitItems",
                 "checkboxText": "Limit Items",
                 "simpleValueType": true,
-                "help": "Some storages can be limited in size. If you choose to store data in ex. a cookie, you should limit number of items stored."
+                "help": "Some storages can be limited in size. To avoid breaking the storage limit, you should limit number of items stored."
               },
               {
                 "type": "TEXT",
@@ -362,7 +389,7 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const dataLayer = require('copyFromDataLayer');
-const ecom = dataLayer('ecommerce', 1);
+const ecom = data.ecomVar && data.ecomInputCheckbox ? data.ecomVar : dataLayer('ecommerce', 1);
 const getTimestampMillis = require('getTimestampMillis');
 const makeInteger = require('makeInteger');
 const makeString = require('makeString');
@@ -378,9 +405,10 @@ let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}]
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
 let searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;
 
-const measurementId = data.measurementId ? data.measurementId.split('-')[1] : undefined;
+const measurementId = data.measurementId && data.customAttributionTime === false ? data.measurementId.split('-')[1] : undefined;
 let ga_session_id = measurementId ? makeString(getCookieValues('_ga_'+measurementId)) : undefined;
-ga_session_id = ga_session_id.indexOf('.') > -1 ? ga_session_id.split('.')[2] : undefined;
+ga_session_id = ga_session_id && ga_session_id.indexOf('.') > -1 ? ga_session_id.split('.')[2] : undefined;
+
 const timestamp = data.attributionTime ? getTimestampMillis() : makeInteger(ga_session_id);
 const timestamp2 = secondDataSource ? secondDataSource.timestamp : timestamp;
 const timestampDiff = secondDataSource && data.attributionTime ? timestamp-secondDataSource.timestamp : timestamp;
@@ -404,7 +432,7 @@ if(data.variableType === 'attribution') {
   let location_id = ecom ? ecom.location_id : undefined;
   let index = ecom ? ecom.index : undefined;
   
-  if (items) {
+ if (items) {
     const mapItemsData = i => {
       const itemObj = {
         item_id: i.item_id,
@@ -458,12 +486,12 @@ if(data.variableType === 'attribution') {
     const promo = {creative_name:creative_name, creative_slot:creative_slot, promotion_id:promotion_id, promotion_name:promotion_name, location_id:location_id};
     
     const promoAttribution = attributionType === 'firstClickAttribution' && promo2 ? promo2 : promo;
-    let extract = {promotion:promoAttribution,items:items2,search_term:searchTerm2,timestamp:timestamp};
+    let extract = {items:items2,promotion:promoAttribution,search_term:searchTerm2,timestamp:timestamp};
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
   
-  const searchTerm = data.searchTerm ? data.searchTerm : undefined;
+  const searchTerm = data.siteSearchChecbox && data.searchTerm ? data.searchTerm : undefined;
   if (searchTerm) {
     const siteSearchttribution = attributionType === 'firstClickAttribution' && searchTerm2 ? searchTerm2: searchTerm;
     let extract = {search_term:searchTerm,items:items2,promotion:promo2,timestamp:timestamp};
@@ -586,4 +614,5 @@ scenarios: []
 
 ___NOTES___
 
-Created on 2/7/2023, 9:14:23 PM
+Created on 2/26/2023, 4:34:54 PM
+
