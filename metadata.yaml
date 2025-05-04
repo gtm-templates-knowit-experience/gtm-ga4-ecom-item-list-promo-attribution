@@ -2,12 +2,15 @@ homepage: "https://github.com/gtm-templates-knowit-experience/"
 documentation: "https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution"
 versions:
   # Latest version
+  - sha: caf65247eea747edd818fc7482f2c86ddd101e9f
+    changeNotes: Improved attribution. Handling of new GA cookie format.
+  # Older Versions
   - sha: 255ee5c08f51415414c3d2f956f75ef34c478045
     changeNotes: Added support for reading GA4 Ecommerce data from Variable. Timestamp bug fix.
-  # Older versions
   - sha: f04d2e4848e477ed834c13227fc145e833554cff
     changeNotes: Added support for deleting/resetting attribution after purchase
   - sha: b6ba970cf68bf2aed8fe61e3b232d81f8f8ff510
     changeNotes: Added functionality and rewrote some code
   - sha: 3c25da521d36882bf6c4985dbb6d46f19a67d310
     changeNotes: Initial release.
+
