@@ -1,14 +1,15 @@
 # GA4 - Item List & Promotion Attribution - GTM Variable (Web)
-**Google Analytics 4 (GA4)** has **Item List & Promotion reports**. But, unlike **Enhanced Ecommerce**, no revenue or conversions are attributed back to Promotion or Item Lists (at the time of creating this solution).
+**Google Analytics 4 (GA4)** has **Item List & Promotion reports**. But - no revenue or conversions are attributed back to Promotion or Item Lists. You have to do this attribution yourself.
 
-This Variable Template for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase):
+This Variable Template for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase) & Items:
+
 * Last Click Attribution
 * First Click Attribution
 * Reset/delete Attribution Data after Purchase
 * Attribution Time (for how long should Item List or Promotion be attributed)
   * Attribution Time can be either **GA4 Session** or **Custom Attribution Time**
 
-![GA4 Item List Attribution example](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ga4-item-list-attribution-animation.gif)
+![GA4 Item List Attribution example](images/ga4-item-list-attribution-animation.gif)
 
 A similar Variable [do also exist for **Server-side GTM**](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution). Differences between doing the attribution with GTM (Web) vs. Server-side GTM are listed below.
 
@@ -45,7 +46,7 @@ Create this variable if you are going to use **Custom Attribution Time**.
 Since attribution time is referenced in several variables, it’s recommended to create a Constant Variable with the attribution time in minutes.
 How long the attribution time should be is up to you. Time is counted from the last **select_promotion**, **select_item** or **add_to_cart** Event. 
 
-![ecom - attribution time - minutes – C](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution/blob/main/images/ecom-attribution%20time-minutes-C.png)
+![ecom - attribution time - minutes – C](images/ecom-attribution-time-minutes-C.png)
 
 * Name the Variable **ecom - attribution time - minutes - C**.
 
@@ -56,7 +57,7 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 *	**Action:** get
 *	**Key:** internal
 
-![ecom - item_list & promotion - Local Storage](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Variable-Local-Storage.png)
+![ecom - item_list & promotion - Local Storage](images/Variable-Local-Storage.png)
 
 * Name the Variable **ecom - item_list & promotion - Local Storage**.
 
@@ -81,7 +82,7 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (thi
   * **Handle data as string:** This will save attribution data as a string. Tick this box with this setup.
   * **Limit Items:** This will limit number of Items stored. You should probably limit number of items, but that is up to you. You can store up to 5MB in Local Storage.
 
-![ecom - item_list & promotion - extract – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-item_list-and-promotion-extract-CT.png)
+![ecom - item_list & promotion - extract – CT](images/gtm-ga4-item_list-and-promotion-extract-CT.png)
 
 * Name the Variable **ecom - item_list & promotion - extract - CT**.
 
@@ -91,6 +92,8 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
 
 * **Variable Type:** Return Attributed Output
 * **Output:** Items
+* **Add Search Terms To Items:** If you tick this checkbox, **search_term** will be added to **items**. This makes it easier to report search_term related to items. You must create an **Item scoped Dimension** in GA4.
+  * This selection is only available for **Items**
 * **Remove null or empty values from Items:** Check this box if your implementation have Item Dimensions with null, "null", "undefined" or empty values.
 * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
 * Attribution
@@ -98,7 +101,7 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
      * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
    * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
 
-![ecom - items - item_list & promotion - merge – CT](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
+![ecom - items - item_list & promotion - merge – CT](images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
 
 *	Name the Variable **ecom - items - item_list & promotion - merge - CT**.
 
@@ -124,7 +127,7 @@ Create a **Custom Event Trigger** with the following settings:
 *	**This trigger fires on:* Some Custom Events
 *	**ecom – item_list & promotion – extract – CT** _does not equal_ undefined
 
-![ecom - select_item, select_promotion & add_to_cart](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Trigger-Local-Storage-Tag.png)
+![ecom - select_item, select_promotion & add_to_cart](images/Trigger-Local-Storage-Tag.png)
 
 *	Name the Trigger **ecom - attribute Events**.
 
@@ -137,7 +140,7 @@ Select the **Local Storage Interact** Tag, and add the following settings:
 * **Key:** internal
 * **Value:** {{ecom - item_list & promotion - extract - CT}}
 
-![Ecom - Item List & Promotion Attribution – Local Storage](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-Local-Storage.png)
+![Ecom - Item List & Promotion Attribution – Local Storage](images/Tag-Local-Storage.png)
 
 * Add **ecom - select_item, select_promotion & add_to_cart** as a Trigger to the Tag.
 * * If you want to track **search_term**, add the same Trigger as you are using for tracking your **view_search_results** Event.
@@ -169,7 +172,7 @@ The following Parameters should be changed in the Tags with those Events:
 | location_id | {{ecom - location_id - merge - CT}} |	 If Promotion without Items is implemented |
 | search_term | {{ecom - search_term - merge - CT}} |	 If you want to attribute search_term |
 
-![GA4 Tag - Parameters](https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution/blob/main/images/Tag-GA4-Tag.png)
+![GA4 Tag - Parameters](images/Tag-GA4-Tag.png)
 
 Your GTM (Web) setup is now complete.
 
@@ -207,17 +210,17 @@ In the setup you will see that Data Layer is mostly Version 1. The **[GA4 Ecom I
 ### select_promotion & view_promotion
 This setup handles both **select_promotion** & **view_promotion**, where promotion also has **Event-level Item Lists**. **location_id** is set to **Page Path**.
 
-![select_promotion & view_promotion](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-tag-select_promotion.png)
+![select_promotion & view_promotion](images/gtm-ga4-tag-select_promotion.png)
 
 ### select_item & view_item_list
 This setup handles both **select_item** & **view_item_list**, with **Event-level Item Lists**. **location_id** is set to **Page Path**.
 
-![select_promotion & view_promotion](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-tag-select_item.png)
+![select_promotion & view_promotion](images/gtm-ga4-tag-select_item.png)
 
 ### add_to_cart & view_item
 This setup handles **add_to_cart** & **view_item**. **location_id** in this setups is also **Page Path**, but Page Path will only be returned if **item_list_name** or **item_list_id** exist. Otherwise **location_id** will be **undefined**.
 
-![select_promotion & view_promotion](https://github.com/gtm-templates-knowit-experience/sgtm-ga4-ecom-item-list-promo-attribution/blob/main/images/gtm-ga4-tag-add_to_cart-view_item.png)
+![select_promotion & view_promotion](images/gtm-ga4-tag-add_to_cart-view_item.png)
 
 ## Attribution explained
 
@@ -229,13 +232,14 @@ Attribution happens on 2 levels:
     - Search Term
 2. Item-level
     - Implemented Items data (ex. Item List name) trumps attributed Items data. Ex. if you are adding a Item to cart directly from a Item List, the implemented Item List Name will be used. If you are adding the Item to cart from a product page (where you shouldn't have a Item List implemented), the attributed Item List Name will be used.
+	- Item Scoped Item List & Promotion attribution are independent of each other. 
 
 * Item-level trumps the Event-level.
   * Promotion without Items will not be attributed to a Item when Promotion with Items are attributed 
 
 To get a better understanding of the attribution, it's recommended to run some test scenarios where you inspect your own data:
-* Run **GTM (Web)** in **Preview Mode**
-* Look at the **Local Storage** data being built or rewritten
+* Run **GTM** in **Preview Mode**
+* Look at the **Local Storage or Cookies** data being built or rewritten
 * Inspect especially **Items** in **GA4 DebugView**
 
 ### Last Click Attribution
@@ -245,7 +249,7 @@ With a Last Click Attribution model, this user journey illustrates the attributi
 2. The user clicks next on a promotion for a bundled phone with earbuds package (“**Promotion 3 with Items**”). This promotion has 2 items attached, the phone and the earbuds. This promotion is attached to the 2 different Item Id’s (**item_id = phone1** and **item_id = earbud2**) and is therefore an Item-level promotion. 
    -	User adds this bundle with 2 items to cart. The add_to_cart Event is attributed to the promotion.
       - User clicks after that on the “**Users Also Looked At**” Item List with other earbuds that it’s also possible to choose. The earbud (item_id = earbud3) the user clicked on is attributed to the “Users Also Looked At” item list. 
-        - On this page, there is also an “Users Also Looked At” item list. User clicks on the first selected earbud (**item_id = earbud2**). The earbud is now attributed to the “Users Also Looked At” item list and is no longer attributed to the initial Item-level promotion.
+        - On this page, there is also an “Users Also Looked At” item list. User clicks on the first selected earbud (**item_id = earbud2**). The earbud is now attributed to the “Users Also Looked At” item list, but is still attributed to the initial Item-level promotion. This because Item Lists and Promotion attribution are independent.
 3. User completes the purchase, and GA4 adds some logic to the result, namely that Item-level trumps the Event-level.
     - The phone (**item_id = phone1**) is attributed to the “**Promotion 3 with Items**” promotion. The promotion didn’t have any Item List, so no Item Lists are attributed. If the promotion also had an Item List, this list would have been attributed.
     - The earbud (**item_id = earbud2**) is attributed to the “**Users Also Looked At**” item list, but in addition, since this item doesn’t have any Item-level promotion, the Event-level promotion “**Promotion 2 without Items**” is also attributed to the earbud. 
@@ -255,5 +259,6 @@ With a Last Click Attribution model, this user journey illustrates the attributi
 In the same scenario, but using First Click Attribution, this would be the result:
 
 1.	Both the phone (**item_id = phone1**) and the earbud (**item_id = earbud2**) would both be attributed to the Item-level “**Promotion 3 with Items**” bundle promotion.
-    - “**Users Also Looked At**” item list would not be attributed to the sale.
+    - “**Users Also Looked At**” item list would also be attributed to the sale, since Item Scoped Item Lists & Promotion are independent.
     - None of the Event-level promotions “**Promotion 1 without Items**” or “**Promotion 2 without Items**” would be attributed since Item-level trumps Event-level.
+
