@@ -71,7 +71,7 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 * Name the Variable **ecom - items - item_list & promotion - LSC**.
 
 ### ecom - items - item_list & promotion - extract - CT
-Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
+Select the [**GA4 Ecommerce – Item List & Promotion Attribution**](template.tpl) Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
 * Data Sources
