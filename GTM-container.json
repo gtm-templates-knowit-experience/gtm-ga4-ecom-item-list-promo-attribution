@@ -1,0 +1,2228 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2025-05-15 19:36:49",
+    "containerVersion": {
+        "path": "accounts/12345/containers/56789/versions/0",
+        "accountId": "12345",
+        "containerId": "56789",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/12345/containers/56789",
+            "accountId": "12345",
+            "containerId": "56789",
+            "name": "GTM Container",
+            "publicId": "GTM-XXXX",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1702755793857",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/12345/containers/56789/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true,
+                "supportTransformations": false
+            },
+            "tagIds": [
+                "GTM-XXXX"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "54",
+                "name": "GA4 - Config",
+                "type": "googtag",
+                "priority": {
+                    "type": "INTEGER",
+                    "value": "1000"
+                },
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "tagId",
+                        "value": "{{GA4 - ID - C}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "configSettingsVariable",
+                        "value": "{{G-Tag - Config Settings}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventSettingsVariable",
+                        "value": "{{G-Tag - Event Settings}}"
+                    }
+                ],
+                "fingerprint": "1747335653502",
+                "firingTriggerId": [
+                    "2147479573"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "monitoringMetadataTagNameKey": "name",
+                "consentSettings": {
+                    "consentStatus": "NOT_NEEDED"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "381",
+                "name": "GA4 - Ecom - Generic - Merge",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "eventSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "NOK"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "items"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - items - item_list & promotion - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_slot"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_slot - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "location_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - location_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "search_term"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - search_term - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "value"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - value - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - currency - DLV}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "coupon"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - coupon - DLV1}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "{{Event}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 - ID - C}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventSettingsVariable",
+                        "value": "{{G-Tag - Event Settings}}"
+                    }
+                ],
+                "fingerprint": "1747335695351",
+                "firingTriggerId": [
+                    "386",
+                    "409",
+                    "410",
+                    "404",
+                    "411",
+                    "413"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_NEEDED"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "401",
+                "name": "Ecom - Item List & Promotion Attribution – LSI",
+                "type": "cvt_MJS6W",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "action",
+                        "value": "set"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": "{{ecom - items - item_list & promotion - extract - CT}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "key",
+                        "value": "internal"
+                    }
+                ],
+                "fingerprint": "1747335759337",
+                "firingTriggerId": [
+                    "400"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "analytics_storage"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "402",
+                "name": "GA4 - Ecom - Generic",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "getEcommerceDataFrom",
+                        "value": "dataLayer"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "{{Event}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 - ID - C}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventSettingsVariable",
+                        "value": "{{G-Tag - Event Settings}}"
+                    }
+                ],
+                "fingerprint": "1747334526614",
+                "firingTriggerId": [
+                    "380",
+                    "384",
+                    "414",
+                    "415"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "418",
+                "name": "GA4 - Ecom - Add Shipping Info - Merge",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "eventSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "NOK"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "items"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - items - item_list & promotion - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_slot"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_slot - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "location_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - location_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "search_term"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - search_term - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "value"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - value - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - currency - DLV}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "coupon"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - coupon - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "shipping_tier"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - shipping_tier - DLV1}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "{{Event}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 - ID - C}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventSettingsVariable",
+                        "value": "{{G-Tag - Event Settings}}"
+                    }
+                ],
+                "fingerprint": "1747334850349",
+                "firingTriggerId": [
+                    "407"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "420",
+                "name": "GA4 - Ecom - Add Payment Info - Merge",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "eventSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "NOK"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "items"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - items - item_list & promotion - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_slot"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_slot - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "location_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - location_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "search_term"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - search_term - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "value"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - value - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - currency - DLV}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "coupon"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - coupon - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "payment_type"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - payment_type - DLV1}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "{{Event}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 - ID - C}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventSettingsVariable",
+                        "value": "{{G-Tag - Event Settings}}"
+                    }
+                ],
+                "fingerprint": "1747335684981",
+                "firingTriggerId": [
+                    "406"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_NEEDED"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "tagId": "425",
+                "name": "GA4 - Ecom - Purchase & Refund - Merge",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "eventSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "NOK"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "items"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - items - item_list & promotion - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - promotion_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_name - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_slot"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - promo - creative_slot - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "location_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - location_id - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "search_term"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - search_term - merge - CT}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "value"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - value - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "currency"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - currency - DLV}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "coupon"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - coupon - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "shipping_tier"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - shipping_tier - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "payment_type"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - payment_type - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "transaction_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - transaction_id - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "shipping"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - shipping - DLV1}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "tax"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{ecom - tax - DLV1}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "{{Event}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 - ID - C}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventSettingsVariable",
+                        "value": "{{G-Tag - Event Settings}}"
+                    }
+                ],
+                "fingerprint": "1747335705488",
+                "firingTriggerId": [
+                    "385",
+                    "424"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_NEEDED"
+                }
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "380",
+                "name": "ecom - select_item - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "select_item"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333364420"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "384",
+                "name": "ecom - select_promotion - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "select_promotion"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333371045"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "385",
+                "name": "ecom - purchase - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "purchase"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333357514"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "386",
+                "name": "ecom - begin_checkout - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "begin_checkout"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333352125"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "400",
+                "name": "ecom - Attribute Events - Item List & Promotion - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "MATCH_REGEX",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "^(select_item|select_promotion|add_to_cart|view_search_results)$"
+                            }
+                        ]
+                    }
+                ],
+                "filter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{ecom - items - item_list & promotion - extract - CT}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "undefined"
+                            },
+                            {
+                                "type": "BOOLEAN",
+                                "key": "negate",
+                                "value": "true"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333345903"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "404",
+                "name": "ecom - add_to_cart - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "add_to_cart"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333340046"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "406",
+                "name": "ecom - add_payment_info - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "add_payment_info"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333326823"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "407",
+                "name": "ecom - add_shipping_info - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "add_shipping_info"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747333333192"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "409",
+                "name": "ecom - view_item - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "view_item"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747334012486"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "410",
+                "name": "ecom - view_cart - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "view_cart"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747334067426"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "411",
+                "name": "ecom - remove_from_cart - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "remove_from_cart"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747334201304"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "413",
+                "name": "ecom - add_to_wishlist - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "add_to_wishlist"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747334344399"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "414",
+                "name": "ecom - view_item_list - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "view_item_list"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747334477446"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "415",
+                "name": "ecom - view_promotion - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "view_promotion"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747334518023"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "triggerId": "424",
+                "name": "ecom - refund - CE",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "refund"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747335264966"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "164",
+                "name": "Site Search - search_term - DLV",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "search_term"
+                    }
+                ],
+                "fingerprint": "1747336210035",
+                "formatValue": {
+                    "caseConversionType": "LOWERCASE"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "189",
+                "name": "GA4 - ID - C",
+                "type": "c",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": "G-XXXXXXXXXX"
+                    }
+                ],
+                "fingerprint": "1747336154974",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "330",
+                "name": "G-Tag - Config Settings",
+                "type": "gtcs",
+                "parameter": [
+                    {
+                        "type": "LIST",
+                        "key": "configSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "send_page_view"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "false"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1747335875454"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "332",
+                "name": "G-Tag - Event Settings",
+                "type": "gtes",
+                "fingerprint": "1747335852567"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "390",
+                "name": "ecom - items - item_list & promotion - LSC",
+                "type": "cvt_TBWKQ",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "action",
+                        "value": "get"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "key",
+                        "value": "internal"
+                    }
+                ],
+                "fingerprint": "1747250681428",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "391",
+                "name": "ecom - items - item_list & promotion - extract - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "attribution"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "searchTerm",
+                        "value": "{{Site Search - search_term - DLV}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "jsonData",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "deleteAttribution",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "attributionType",
+                        "value": "lastClickAttribution"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "siteSearchChecbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "limitItems",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1747250659855",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "392",
+                "name": "ecom - items - item_list & promotion - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "itemSearchTerm",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "items"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "removeNullfromItems",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295160561",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "393",
+                "name": "ecom - location_id - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "location_id"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295210615",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "394",
+                "name": "ecom - promo - creative_name - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "creative_name"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295231261",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "395",
+                "name": "ecom - promo - creative_slot - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "creative_slot"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295249138",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "396",
+                "name": "ecom - promo - promotion_id - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "promotion_id"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295277141",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "397",
+                "name": "ecom - promo - promotion_name - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "promotion_name"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295295972",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "398",
+                "name": "ecom - search_term - merge - CT",
+                "type": "cvt_56789_387",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "variableType",
+                        "value": "output"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "outputDropDown",
+                        "value": "search_term"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "ecomInputCheckbox",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "customAttributionTime",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "secondDataSource",
+                        "value": "{{ecom - items - item_list & promotion - LSC}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementId",
+                        "value": "{{GA4 - ID - C}}"
+                    }
+                ],
+                "fingerprint": "1746295313571",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "408",
+                "name": "ecom - value - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "value"
+                    }
+                ],
+                "fingerprint": "1747333545771",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "412",
+                "name": "ecom - currency - DLV",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "ecommerce.currency"
+                    }
+                ],
+                "fingerprint": "1747334288173",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "416",
+                "name": "ecom - coupon - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "coupon"
+                    }
+                ],
+                "fingerprint": "1747334625984",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "417",
+                "name": "ecom - shipping_tier - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "shipping_tier"
+                    }
+                ],
+                "fingerprint": "1747334817652",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "419",
+                "name": "ecom - payment_type - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "payment_type"
+                    }
+                ],
+                "fingerprint": "1747334906287",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "421",
+                "name": "ecom - transaction_id - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "transaction_id"
+                    }
+                ],
+                "fingerprint": "1747335313135",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "422",
+                "name": "ecom - shipping - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "shipping"
+                    }
+                ],
+                "fingerprint": "1747335159760",
+                "formatValue": {}
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "variableId": "423",
+                "name": "ecom - tax - DLV1",
+                "type": "cvt_56789_308",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "ecomParam",
+                        "value": "tax"
+                    }
+                ],
+                "fingerprint": "1747335200557",
+                "formatValue": {}
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "type": "EVENT",
+                "name": "Event"
+            }
+        ],
+        "fingerprint": "1747337809106",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/12345/containers/56789/versions/0?apiLink=version",
+        "customTemplate": [
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "templateId": "308",
+                "name": "GA4 Ecom Items - DLV Version 1",
+                "fingerprint": "1668113186896",
+                "templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"MACRO\",\n  \"id\": \"cvt_temp_public_id\",\n  \"version\": 1,\n  \"securityGroups\": [],\n  \"displayName\": \"GA4 Ecom Items - DLV Version 1\",\n  \"description\": \"Returns GA4 Ecommerce Items \\u0026 Standard Ecommerce Parameters (ex. payment_type) as Data Layer Variable Version 1. This ensures that GTM will only access the most recent Item push into the Data Layer.\",\n  \"categories\": [\n    \"ANALYTICS\",\n    \"UTILITY\",\n    \"TAG_MANAGEMENT\"\n  ],\n  \"containerContexts\": [\n    \"WEB\"\n  ],\n  \"brand\": {\n    \"displayName\": \"gtm-templates-knowit-experience\",\n    \"id\": \"github.com_gtm-templates-knowit-experience\"\n  }\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[\n  {\n    \"type\": \"SELECT\",\n    \"name\": \"ecomParam\",\n    \"displayName\": \"Standard Ecommerce Parameters\",\n    \"selectItems\": [\n      {\n        \"value\": \"items\",\n        \"displayValue\": \"items\"\n      },\n      {\n        \"value\": \"item_list_id\",\n        \"displayValue\": \"item_list_id\"\n      },\n      {\n        \"value\": \"item_list_name\",\n        \"displayValue\": \"item_list_name\"\n      },\n      {\n        \"value\": \"creative_name\",\n        \"displayValue\": \"creative_name\"\n      },\n      {\n        \"value\": \"creative_slot\",\n        \"displayValue\": \"creative_slot\"\n      },\n      {\n        \"value\": \"promotion_id\",\n        \"displayValue\": \"promotion_id\"\n      },\n      {\n        \"value\": \"promotion_name\",\n        \"displayValue\": \"promotion_name\"\n      },\n      {\n        \"value\": \"location_id\",\n        \"displayValue\": \"location_id\"\n      },\n      {\n        \"value\": \"payment_type\",\n        \"displayValue\": \"payment_type\"\n      },\n      {\n        \"value\": \"shipping_tier\",\n        \"displayValue\": \"shipping_tier\"\n      },\n      {\n        \"value\": \"transaction_id\",\n        \"displayValue\": \"transaction_id\"\n      },\n      {\n        \"value\": \"affiliation\",\n        \"displayValue\": \"affiliation\"\n      },\n      {\n        \"value\": \"coupon\",\n        \"displayValue\": \"coupon\"\n      },\n      {\n        \"value\": \"value\",\n        \"displayValue\": \"value\"\n      },\n      {\n        \"value\": \"shipping\",\n        \"displayValue\": \"shipping\"\n      },\n      {\n        \"value\": \"tax\",\n        \"displayValue\": \"tax\"\n      }\n    ],\n    \"simpleValueType\": true,\n    \"help\": \"Select Standard Ecommerce Parameter. If you select ex. \\u003cstrong\\u003eitems\\u003c/strong\\u003e parameter, \\u003cstrong\\u003eecommerce.items\\u003c/strong\\u003e will be returned as Data Layer Version 1.\",\n    \"alwaysInSummary\": true\n  },\n  {\n    \"type\": \"CHECKBOX\",\n    \"name\": \"removeNullfromItems\",\n    \"checkboxText\": \"Remove null or empty Values from Items\",\n    \"simpleValueType\": true,\n    \"help\": \"If items has null values (ex. \\u003cstrong\\u003eitem_category2: null\\u003c/strong\\u003e), these values can be reported as a \\\"null\\\" string in GA4.\\n\\u003cbr /\\u003e\\u003cbr /\\u003e\\nBy ticking this box, \\u003cstrong\\u003enull\\u003c/strong\\u003e \\u0026 \\u003cstrong\\u003eempty\\u003c/strong\\u003e values will be replaced with \\u003cstrong\\u003eundefined\\u003c/strong\\u003e, and discarded from being sent from GTM to GA4.\",\n    \"enablingConditions\": [\n      {\n        \"paramName\": \"ecomParam\",\n        \"paramValue\": \"items\",\n        \"type\": \"EQUALS\"\n      }\n    ],\n    \"alwaysInSummary\": true\n  }\n]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\nconst dataLayer = require('copyFromDataLayer');\nlet ecom = dataLayer('ecommerce', 1);\n\nif(ecom) {\n  switch(data.ecomParam) {\n    case 'item_list_id':\n      ecom = ecom.item_list_id;\n       break;\n    case 'item_list_name':\n      ecom = ecom.item_list_name;\n    break;\n    case 'creative_name':\n      ecom = ecom.creative_name;\n      break;\n    case 'creative_slot':\n      ecom = ecom.creative_slot;\n      break;\n    case 'promotion_id':\n      ecom = ecom.promotion_id;\n      break;\n    case 'promotion_name':\n      ecom = ecom.promotion_name;\n      break;\n    case 'location_id':\n      ecom = ecom.location_id;\n      break;\n    case 'payment_type':\n      ecom = ecom.payment_type;\n      break;\n    case 'shipping_tier':\n      ecom = ecom.shipping_tier;\n      break;\n    case 'transaction_id':\n      ecom = ecom.transaction_id;\n      break;\n    case 'affiliation':\n      ecom = ecom.affiliation;\n      break;\n    case 'coupon':\n      ecom = ecom.coupon;\n      break;\n    case 'value':\n      ecom = ecom.value;\n      break;\n    case 'shipping':\n      ecom = ecom.shipping;\n      break;\n    case 'tax':\n      ecom = ecom.tax;\n      break;\n    default:\n      ecom = ecom.items;\n    }\n      if(data.removeNullfromItems && ecom) {\n        ecom.forEach(function(object){\n          for(let key in object) {\n            if(object[key] === null || object[key] === '')\n              object[key] = undefined;\n            }\n      });\n  }\n  return ecom;\n}\nreturn undefined;\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"read_data_layer\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keyPatterns\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 1,\n                \"string\": \"ecommerce.*\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nCreated on 8/6/2021, 4:27:14 PM\n\n\n",
+                "galleryReference": {
+                    "host": "github.com",
+                    "owner": "gtm-templates-knowit-experience",
+                    "repository": "gtm-ga4-ecom-items-dlv-version-1-variable",
+                    "version": "9c9d8bdf3974b4d038a13259cbefe827c2d6e4ee",
+                    "signature": "a1a9f752900de2fca0ce163051da1059a0bd95c043a4240990c508976299b5a6"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "templateId": "387",
+                "name": "GA4 - Item List & Promotion Attribution",
+                "fingerprint": "1747337351283",
+                "templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"MACRO\",\n  \"id\": \"cvt_temp_public_id\",\n  \"version\": 1,\n  \"securityGroups\": [],\n  \"displayName\": \"GA4 - Item List \\u0026 Promotion Attribution\",\n  \"description\": \"Attribute GA4 Item List, Promotion or Search Term to revenue \\u0026 ecommerce Events. This Template makes this possible by using ex. Local Storage as a \\\"helper\\\". Last \\u0026 First Click Attribution supported.\",\n  \"categories\": [\n    \"ANALYTICS\",\n    \"UTILITY\",\n    \"TAG_MANAGEMENT\"\n  ],\n  \"containerContexts\": [\n    \"WEB\"\n  ]\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[\n  {\n    \"type\": \"LABEL\",\n    \"name\": \"introLabel\",\n    \"displayName\": \"Extract \\u0026 Attribute GA4 Item List \\u0026 Promotion data, or merge Item List \\u0026 Promotion Data from Second Data Source.\"\n  },\n  {\n    \"type\": \"GROUP\",\n    \"name\": \"variableTypeGroup\",\n    \"displayName\": \"Variable Type\",\n    \"groupStyle\": \"NO_ZIPPY\",\n    \"subParams\": [\n      {\n        \"type\": \"RADIO\",\n        \"name\": \"variableType\",\n        \"displayName\": \"Create Attribution or Return Attributed Output\",\n        \"radioItems\": [\n          {\n            \"value\": \"attribution\",\n            \"displayValue\": \"Extract Item List \\u0026 Promotion for Attribution\"\n          },\n          {\n            \"value\": \"output\",\n            \"displayValue\": \"Return Attributed Output\"\n          }\n        ],\n        \"simpleValueType\": true\n      },\n      {\n        \"type\": \"GROUP\",\n        \"name\": \"outputGroup\",\n        \"displayName\": \"Output\",\n        \"groupStyle\": \"NO_ZIPPY\",\n        \"subParams\": [\n          {\n            \"type\": \"SELECT\",\n            \"name\": \"outputDropDown\",\n            \"displayName\": \"Parameter Output\",\n            \"selectItems\": [\n              {\n                \"value\": \"items\",\n                \"displayValue\": \"Items\"\n              },\n              {\n                \"value\": \"promotion_name\",\n                \"displayValue\": \"Promotion Name\"\n              },\n              {\n                \"value\": \"promotion_id\",\n                \"displayValue\": \"Promotion ID\"\n              },\n              {\n                \"value\": \"creative_name\",\n                \"displayValue\": \"Creative Name\"\n              },\n              {\n                \"value\": \"creative_slot\",\n                \"displayValue\": \"Creative Slot\"\n              },\n              {\n                \"value\": \"location_id\",\n                \"displayValue\": \"Location ID\"\n              },\n              {\n                \"value\": \"search_term\",\n                \"displayValue\": \"Search Term\"\n              }\n            ],\n            \"simpleValueType\": true,\n            \"valueValidators\": [\n              {\n                \"type\": \"NON_EMPTY\"\n              }\n            ]\n          },\n          {\n            \"type\": \"CHECKBOX\",\n            \"name\": \"removeNullfromItems\",\n            \"checkboxText\": \"Remove null or empty values from Items\",\n            \"simpleValueType\": true,\n            \"help\": \"If items has null values (ex. \\u003cstrong\\u003eitem_category2: null\\u003c/strong\\u003e), these values can be reported as a \\\"null\\\" string in GA4. \\u003cbr /\\u003e\\u003cbr /\\u003e By ticking this box, \\u003cstrong\\u003enull\\u003c/strong\\u003e \\u0026 \\u003cstrong\\u003eempty\\u003c/strong\\u003e values will be replaced with \\u003cstrong\\u003eundefined\\u003c/strong\\u003e, and discarded from being sent from GTM to GA4.\",\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"outputDropDown\",\n                \"paramValue\": \"items\",\n                \"type\": \"EQUALS\"\n              }\n            ]\n          },\n          {\n            \"type\": \"CHECKBOX\",\n            \"name\": \"itemSearchTerm\",\n            \"checkboxText\": \"Add Search Term To Items\",\n            \"simpleValueType\": true,\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"outputDropDown\",\n                \"paramValue\": \"items\",\n                \"type\": \"EQUALS\"\n              }\n            ],\n            \"help\": \"If you tick this checkbox, \\u003cstrong\\u003esearch_term\\u003c/strong\\u003e will be added to \\u003cstrong\\u003eitems\\u003c/strong\\u003e. This makes it easier to report search_term related to items purchased. \\u003cbr /\\u003e\\u003cbr /\\u003e \\u003cstrong\\u003esearch_term\\u003c/strong\\u003e must be added in GA4 as an \\u003cstrong\\u003eitem scoped dimension\\u003c/strong\\u003e.\"\n          }\n        ],\n        \"enablingConditions\": [\n          {\n            \"paramName\": \"variableType\",\n            \"paramValue\": \"output\",\n            \"type\": \"EQUALS\"\n          }\n        ]\n      },\n      {\n        \"type\": \"GROUP\",\n        \"name\": \"secondDataSourceGroup\",\n        \"displayName\": \"Data Sources\",\n        \"groupStyle\": \"NO_ZIPPY\",\n        \"subParams\": [\n          {\n            \"type\": \"CHECKBOX\",\n            \"name\": \"ecomInputCheckbox\",\n            \"checkboxText\": \"Read GA4 Ecommerce data from Variable\",\n            \"simpleValueType\": true,\n            \"alwaysInSummary\": true,\n            \"help\": \"Tick this box if you need to read GA4 Ecommerce data from a Variable.\\n\\u003cbr /\\u003e\\u003cbr /\\u003e\\nThe Variable must return a complete ecommerce object, e.g. \\u003cstrong\\u003eecommerce.items\\u003c/strong\\u003e\"\n          },\n          {\n            \"type\": \"TEXT\",\n            \"name\": \"ecomVar\",\n            \"displayName\": \"GA4 Ecommerce data input\",\n            \"simpleValueType\": true,\n            \"alwaysInSummary\": true,\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"ecomInputCheckbox\",\n                \"paramValue\": true,\n                \"type\": \"EQUALS\"\n              }\n            ],\n            \"valueValidators\": [\n              {\n                \"type\": \"NON_EMPTY\"\n              }\n            ]\n          },\n          {\n            \"type\": \"TEXT\",\n            \"name\": \"secondDataSource\",\n            \"displayName\": \"Second Data Source\",\n            \"simpleValueType\": true,\n            \"valueValidators\": [\n              {\n                \"type\": \"NON_EMPTY\"\n              }\n            ],\n            \"alwaysInSummary\": true,\n            \"help\": \"Insert  variable with Second Data Source (ex. Local Storage or Cookie) in this field\"\n          }\n        ]\n      },\n      {\n        \"type\": \"LABEL\",\n        \"name\": \"attributionLabel\"\n      },\n      {\n        \"type\": \"GROUP\",\n        \"name\": \"attributionGroup\",\n        \"displayName\": \"Attribution\",\n        \"groupStyle\": \"NO_ZIPPY\",\n        \"subParams\": [\n          {\n            \"type\": \"CHECKBOX\",\n            \"name\": \"deleteAttribution\",\n            \"checkboxText\": \"Delete Attribution Data after Purchase\",\n            \"simpleValueType\": true,\n            \"help\": \"Tick this box if you want attribution data to be deleted/reset after \\u003cstrong\\u003epurchase\\u003c/strong\\u003e.\",\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"variableType\",\n                \"paramValue\": \"attribution\",\n                \"type\": \"EQUALS\"\n              }\n            ],\n            \"alwaysInSummary\": true\n          },\n          {\n            \"type\": \"CHECKBOX\",\n            \"name\": \"customAttributionTime\",\n            \"checkboxText\": \"Custom Attribution Time\",\n            \"simpleValueType\": true,\n            \"alwaysInSummary\": true,\n            \"help\": \"As standard, attribution time is the same as a \\u003cstrong\\u003e\\u003ca href\\u003d\\\"https://support.google.com/analytics/answer/9191807\\\" target\\u003d\\\"_blank\\\"\\u003eGA4 Session\\u003c/a\\u003e\\u003c/strong\\u003e, but you can choose a \\u003cstrong\\u003ecustom attribution time\\u003c/strong\\u003e if that better fits your users behaviour.\"\n          },\n          {\n            \"type\": \"TEXT\",\n            \"name\": \"attributionTime\",\n            \"displayName\": \"Attribution Time in Minutes\",\n            \"simpleValueType\": true,\n            \"help\": \"How many minutes should \\u003cstrong\\u003eItem Lists\\u003c/strong\\u003e or \\u003cstrong\\u003ePromotion\\u003c/strong\\u003e being credited to a conversion? \\u003cbr /\\u003e\\u003cbr /\\u003e Note that each \\u003cstrong\\u003eselect_item\\u003c/strong\\u003e, \\u003cstrong\\u003eselect_promotion\\u003c/strong\\u003e or \\u003cstrong\\u003eadd_to_cart\\u003c/strong\\u003e Event will renew the attribution time (if these Events contains Item List or Promotion data).\",\n            \"valueValidators\": [\n              {\n                \"type\": \"NON_EMPTY\"\n              },\n              {\n                \"type\": \"POSITIVE_NUMBER\"\n              }\n            ],\n            \"valueHint\": \"30\",\n            \"valueUnit\": \"minutes\",\n            \"alwaysInSummary\": true,\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"customAttributionTime\",\n                \"paramValue\": true,\n                \"type\": \"EQUALS\"\n              }\n            ]\n          },\n          {\n            \"type\": \"TEXT\",\n            \"name\": \"measurementId\",\n            \"displayName\": \"Measurement ID\",\n            \"simpleValueType\": true,\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"customAttributionTime\",\n                \"paramValue\": false,\n                \"type\": \"EQUALS\"\n              }\n            ],\n            \"help\": \"Enter the \\u003cstrong\\u003eMeasurement ID\\u003c/strong\\u003e (e.g, G-A2ABC2ABCD) for your \\u003cstrong\\u003eGA4 property\\u003c/strong\\u003e. \\u003ca href\\u003d\\\"https://support.google.com/analytics/answer/9310895\\\" target\\u003d\\\"_blank\\\"\\u003eLearn more\\u003c/a\\u003e\\n\\u003cbr /\\u003e\\u003cbr /\\u003e\\nThis must be the same \\u003cstrong\\u003eMeasurement ID\\u003c/strong\\u003e as the one used in the \\u003cstrong\\u003eGA4 Configuration Tag\\u003c/strong\\u003e.\",\n            \"valueValidators\": [\n              {\n                \"type\": \"NON_EMPTY\"\n              }\n            ],\n            \"alwaysInSummary\": true\n          },\n          {\n            \"type\": \"RADIO\",\n            \"name\": \"attributionType\",\n            \"displayName\": \"Attribution Type\",\n            \"radioItems\": [\n              {\n                \"value\": \"lastClickAttribution\",\n                \"displayValue\": \"Last Click Attribution\"\n              },\n              {\n                \"value\": \"firstClickAttribution\",\n                \"displayValue\": \"First Click Attribution\"\n              }\n            ],\n            \"simpleValueType\": true,\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"variableType\",\n                \"paramValue\": \"attribution\",\n                \"type\": \"EQUALS\"\n              }\n            ],\n            \"help\": \"\\u003cstrong\\u003eLast Click Attribution\\u003c/strong\\u003e \\u003cbr /\\u003e With Last Click Attribution, the Last Click on an Item List or a Promotion will be attributed. \\u003cbr /\\u003e\\u003cbr /\\u003e See \\u003ca href\\u003d\\\"https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution\\\" target\\u003d\\\"_blank\\\"\\u003e\\u003cstrong\\u003ethe documentation\\u003c/strong\\u003e\\u003c/a\\u003e for detailed explanation of attribution. \\u003cbr /\\u003e\\u003cbr /\\u003e \\u003cstrong\\u003eFirst Click Attribution\\u003c/strong\\u003e \\u003cbr /\\u003e With First Click Attribution, the First Click on an Item List or a Promotion will be attributed.\"\n          },\n          {\n            \"type\": \"GROUP\",\n            \"name\": \"siteSearchGroup\",\n            \"groupStyle\": \"NO_ZIPPY\",\n            \"subParams\": [\n              {\n                \"type\": \"CHECKBOX\",\n                \"name\": \"siteSearchChecbox\",\n                \"checkboxText\": \"Attribute Site Search\",\n                \"simpleValueType\": true,\n                \"alwaysInSummary\": true,\n                \"enablingConditions\": [],\n                \"help\": \"Attribute the \\u003cstrong\\u003esearch_term\\u003c/strong\\u003e parameter.\"\n              },\n              {\n                \"type\": \"TEXT\",\n                \"name\": \"searchTerm\",\n                \"displayName\": \"Search Term\",\n                \"simpleValueType\": true,\n                \"valueValidators\": [\n                  {\n                    \"type\": \"NON_EMPTY\"\n                  }\n                ],\n                \"enablingConditions\": [\n                  {\n                    \"paramName\": \"siteSearchChecbox\",\n                    \"paramValue\": true,\n                    \"type\": \"EQUALS\"\n                  }\n                ],\n                \"valueHint\": \"{{search_term - Query}}\",\n                \"alwaysInSummary\": true\n              }\n            ],\n            \"enablingConditions\": [\n              {\n                \"paramName\": \"variableType\",\n                \"paramValue\": \"attribution\",\n                \"type\": \"EQUALS\"\n              }\n            ],\n            \"displayName\": \"Site Search\"\n          }\n        ]\n      },\n      {\n        \"type\": \"GROUP\",\n        \"name\": \"otherSettingsGroup\",\n        \"displayName\": \"Other Settings\",\n        \"groupStyle\": \"ZIPPY_OPEN_ON_PARAM\",\n        \"subParams\": [\n          {\n            \"type\": \"CHECKBOX\",\n            \"name\": \"jsonData\",\n            \"checkboxText\": \"Handle data as string\",\n            \"simpleValueType\": true,\n            \"help\": \"Tick this box, and data will be saved as a string using \\u003cstrong\\u003eJSON.stringify\\u003c/strong\\u003e, and read will be done using \\u003cstrong\\u003eJSON.parse\\u003c/strong\\u003e.  \\u003cbr /\\u003e\\u003cbr /\\u003e Choose this setting if you ex. are storing the data in Local Storage.\"\n          },\n          {\n            \"type\": \"GROUP\",\n            \"name\": \"limitItemsGroup\",\n            \"groupStyle\": \"NO_ZIPPY\",\n            \"subParams\": [\n              {\n                \"type\": \"CHECKBOX\",\n                \"name\": \"limitItems\",\n                \"checkboxText\": \"Limit Items\",\n                \"simpleValueType\": true,\n                \"help\": \"Some storages can be limited in size. To avoid breaking the storage limit, you should limit number of items stored.\"\n              },\n              {\n                \"type\": \"TEXT\",\n                \"name\": \"limitItemsNumber\",\n                \"displayName\": \"Number of Items\",\n                \"simpleValueType\": true,\n                \"valueHint\": \"2\",\n                \"valueValidators\": [\n                  {\n                    \"type\": \"NON_EMPTY\"\n                  },\n                  {\n                    \"type\": \"POSITIVE_NUMBER\"\n                  }\n                ],\n                \"valueUnit\": \"item(s)\",\n                \"enablingConditions\": [\n                  {\n                    \"paramName\": \"limitItems\",\n                    \"paramValue\": true,\n                    \"type\": \"EQUALS\"\n                  }\n                ]\n              }\n            ]\n          }\n        ],\n        \"enablingConditions\": [\n          {\n            \"paramName\": \"variableType\",\n            \"paramValue\": \"attribution\",\n            \"type\": \"EQUALS\"\n          }\n        ]\n      }\n    ]\n  }\n]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\nconst dataLayer = require('copyFromDataLayer');\nconst ecom = data.ecomVar && data.ecomInputCheckbox ? data.ecomVar : dataLayer('ecommerce', 1);\nconst getTimestampMillis = require('getTimestampMillis');\nconst makeInteger = require('makeInteger');\nconst makeString = require('makeString');\nconst JSON = require('JSON');\nconst getCookieValues = require('getCookieValues');\nconst Object = require('Object');\nconst getType = require('getType');\n\nconst jsonData = data.jsonData;\nconst secondDataSource = data.secondDataSource && typeof data.secondDataSource === 'string' ? JSON.parse(data.secondDataSource) : data.secondDataSource || undefined;\n\nconst event_name = dataLayer('event', 2);\nconst items = ecom ? ecom.items : undefined;\nlet items2 = secondDataSource ? secondDataSource.items : [{item_id:\"helper_id\"}];\nlet promo2 = secondDataSource ? secondDataSource.promotion : undefined;\nlet searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;\n\nconst measurementId = data.measurementId && data.customAttributionTime === false ? data.measurementId.split('-')[1] : undefined;\nconst gaCookie = measurementId && makeString(getCookieValues('_ga_' + measurementId));\nlet ga_session_id;\n\nif (gaCookie) {\n  // 1) new GS2 format (has $ delimiters)\n  if (gaCookie.indexOf('$') > -1) {\n    // turn all \"$\" into \".\" so we only need one split\n    const normalized = gaCookie.split('$').join('.');\n    const segments = normalized.split('.');\n    // find the piece that starts with \"s\"\n    let sPart;\n    for (let i = 0; i < segments.length; i++) {\n      if (segments[i].charAt(0) === 's') {\n        sPart = segments[i];\n        break;\n      }\n    }\n    // strip off the \"s\" and convert to integer\n    ga_session_id = sPart ? makeInteger(sPart.substring(1)) : undefined;\n  }\n  // 2) old GS1 format (only dots)\n  else if (gaCookie.indexOf('.') > -1) {\n    const parts = gaCookie.split('.');\n    ga_session_id = parts.length > 2 ? makeInteger(parts[2]) : undefined;\n  }\n}\n\nga_session_id = ga_session_id && getType(ga_session_id) === 'number' ? ga_session_id : getTimestampMillis(); // Fallback to getTimestampMillis() \"just in case\".\n\nconst timestamp = data.attributionTime ? getTimestampMillis() : ga_session_id;\nconst timestamp2 = secondDataSource && secondDataSource.timestamp ? secondDataSource.timestamp : timestamp;\nconst timestampDiff = secondDataSource && data.attributionTime ? timestamp-secondDataSource.timestamp : timestamp;\nconst attributionTime = data.attributionTime ? makeInteger(data.attributionTime)*60000 : timestamp2;\nconst attributionType = data.attributionType;\nconst limitItemsNumber = data.limitItemsNumber;\n\nfunction hasValue(v) { return v !== undefined && v !== null && v !== ''; }\nfunction isMissing(v) { return v === undefined || v === null || v === ''; }\n\nif(timestampDiff > attributionTime) {\n  items2 = [{item_id:\"helper_id\"}];\n  promo2 = undefined;\n  searchTerm2 = undefined;\n}\n\nif(data.variableType === 'attribution') {\n  let item_list_id = hasValue(ecom && ecom.item_list_id) ? ecom.item_list_id : undefined;\n  let item_list_name = hasValue(ecom && ecom.item_list_name) ? ecom.item_list_name : undefined;\n  let creative_name = hasValue(ecom && ecom.creative_name) ? ecom.creative_name : undefined;\n  let creative_slot = hasValue(ecom && ecom.creative_slot) ? ecom.creative_slot : undefined;\n  let promotion_id = hasValue(ecom && ecom.promotion_id) ? ecom.promotion_id : undefined;\n  let promotion_name = hasValue(ecom && ecom.promotion_name) ? ecom.promotion_name : undefined;\n  let location_id = hasValue(ecom && ecom.location_id) ? ecom.location_id : undefined;\n  let index = hasValue(ecom && ecom.index) ? ecom.index : undefined;\n  \n if (items) {\n    const mapItemsData = i => {\n      const itemObj = {\n        item_id: i.item_id,\n        item_list_id: hasValue(i.item_list_id) ? i.item_list_id : item_list_id,\n        item_list_name: hasValue(i.item_list_name) ? i.item_list_name : item_list_name,\n        creative_name: hasValue(i.creative_name) ? i.creative_name : creative_name,\n        creative_slot: hasValue(i.creative_slot) ? i.creative_slot : creative_slot,\n        promotion_id: hasValue(i.promotion_id) ? i.promotion_id : promotion_id,\n        promotion_name: hasValue(i.promotion_name) ? i.promotion_name : promotion_name,\n        location_id: hasValue(i.location_id) ? i.location_id : location_id,\n        index: hasValue(i.index) ? i.index : index\n      };\n      return itemObj;\n    };\n    \n    const items1 = items.map(mapItemsData);\n    const first = items1[0] || {};\n   \n    const item_id = first.item_id ? first.item_id : undefined;\n    item_list_id = hasValue(first.item_list_id) ? first.item_list_id : undefined;\n    item_list_name = hasValue(first.item_list_name) ? first.item_list_name : undefined;\n    promotion_id = hasValue(first.promotion_id) ? first.promotion_id : promotion_id;\n    promotion_name = hasValue(first.promotion_name) ? first.promotion_name : promotion_name;\n    creative_name = hasValue(first.creative_name) ? first.creative_name : creative_name;\n    creative_slot = hasValue(first.creative_slot) ? first.creative_slot : creative_slot;\n    location_id = hasValue(first.location_id) ? first.location_id : location_id;\n\n  if (items1 && item_id && (item_list_id || item_list_name || promotion_id || promotion_name)) {\n    const firstClick = attributionType === 'firstClickAttribution';\n    const combined = firstClick ? items2.concat(items1) : items1.concat(items2);  // first vs. last click attribution\n\n    const mergedMap = {};\n    for (let i = 0; i < items2.length; i++) {\n      const oldRec = items2[i];\n      // shallow‐clone oldRec into a brand‐new object\n      const clone = {};\n      const flds  = Object.keys(oldRec);\n      for (let j = 0; j < flds.length; j++) {\n        const k = flds[j];\n        clone[k] = oldRec[k];\n      }\n      mergedMap[oldRec.item_id] = clone;\n    }\n\n    // ================\n    // 2) MERGE ONLY the NEW `items1` records\n    // ================\n    items1.forEach(rec1 => {\n      const id = rec1.item_id;\n      let tgt   = mergedMap[id];\n      if (!tgt) {\n        // no seed existed, start fresh\n        tgt = { item_id: id };\n      }\n\n      const isListEvent = hasValue(rec1.item_list_id) || hasValue(rec1.item_list_name);\n\n      // Item‐List group    \n      if (isListEvent) {\n        if (attributionType === 'firstClickAttribution') {\n          if (isMissing(tgt.item_list_id)) tgt.item_list_id = rec1.item_list_id;\n          if (isMissing(tgt.item_list_name)) tgt.item_list_name = rec1.item_list_name;\n        } else {\n          // overwrite even if rec1.[…] is null (you may guard if you don’t want to write nulls)\n          tgt.item_list_id = rec1.item_list_id;\n          tgt.item_list_name = rec1.item_list_name;\n        }\n      }\n\n      const isPromoEvent = hasValue(rec1.promotion_id) || hasValue(rec1.promotion_name);\n      \n      // Promotion group   \n      if (isPromoEvent) {\n        if (attributionType === 'firstClickAttribution') {\n          if (isMissing(tgt.promotion_id))   tgt.promotion_id   = rec1.promotion_id;\n          if (isMissing(tgt.promotion_name)) tgt.promotion_name = rec1.promotion_name;\n          if (isMissing(tgt.creative_name))  tgt.creative_name  = rec1.creative_name;\n          if (isMissing(tgt.creative_slot))  tgt.creative_slot  = rec1.creative_slot;\n        } else {\n          tgt.promotion_id   = rec1.promotion_id;\n          tgt.promotion_name = rec1.promotion_name;\n          tgt.creative_name  = rec1.creative_name;\n          tgt.creative_slot  = rec1.creative_slot;\n        }\n      }\n      \n      // Location & index\n      if (hasValue(rec1.location_id)) {\n        if (attributionType === 'firstClickAttribution' ? isMissing(tgt.location_id) : true) {\n          tgt.location_id = rec1.location_id;\n        }\n      }\n      if (hasValue(rec1.index)) {\n        if (attributionType === 'firstClickAttribution' ? isMissing(tgt.index) : true) {\n          tgt.index = rec1.index;\n        }\n      }\n      \n     mergedMap[id] = tgt;\n    });\n\n    // ================\n    // 3) EXTRACT & LIMIT\n    // ================\n    let uniqueItems = Object.keys(mergedMap).map(function(k){ return mergedMap[k]; });\n    if (limitItemsNumber) {\n      uniqueItems = uniqueItems.slice(0, makeInteger(limitItemsNumber));\n    }\n\n    const extract = {\n      items: uniqueItems,\n      promotion: promo2,\n      search_term: searchTerm2,\n      timestamp: timestamp\n    };\n    return jsonData ? JSON.stringify(extract) : extract;\n  }\n}\n  \n  if (promotion_id||promotion_name) {\n    const promo = {creative_name: creative_name, creative_slot: creative_slot, promotion_id: promotion_id, promotion_name: promotion_name, location_id: location_id};\n    \n    const promoAttribution = attributionType === 'firstClickAttribution' && promo2 ? promo2 : promo;\n    let extract = {items: items2, promotion: promoAttribution, search_term: searchTerm2, timestamp: timestamp};\n      extract = jsonData && extract ? JSON.stringify(extract) : extract;\n        return extract;\n  }\n  \n  const searchTerm = data.siteSearchChecbox && hasValue(data.searchTerm) ? data.searchTerm : undefined;\n  if (searchTerm) {\n    const siteSearchttribution = attributionType === 'firstClickAttribution' && searchTerm2 ? searchTerm2 : searchTerm;\n    let extract = {search_term: siteSearchttribution, items: items2, promotion: promo2, timestamp: timestamp};\n      extract = jsonData && extract ? JSON.stringify(extract) : extract;\n        return extract;\n  }\n}\nelse if (data.variableType === 'output') {\n  let output;\n  const param = data.outputDropDown;\n  if (param === 'promotion_id') {\n    output = promo2 ? promo2.promotion_id : undefined;\n  } else if (param === 'promotion_name') {\n    output = promo2 ? promo2.promotion_name : undefined;\n  } else if (param === 'creative_name') {\n    output = promo2 ? promo2.creative_name : undefined;\n  } else if (param === 'creative_slot') {\n    output = promo2 ? promo2.creative_slot : undefined;\n  } else if (param === 'location_id') {\n    output = promo2 ? promo2.location_id : undefined;\n  } else if (param === 'search_term') {\n    output = searchTerm2 ? searchTerm2 : undefined;\n  } else if (param === 'items' && items) {\n    items.forEach(item => {\n      if(data.itemSearchTerm && searchTerm2 ) {\n        item.search_term = searchTerm2;\n      }\n      items2.forEach(item2 => {\n        if (item.item_id === item2.item_id) {\n          item.item_list_id = item.item_list_id || item2.item_list_id || undefined;\n          item.item_list_name = item.item_list_name || item2.item_list_name || undefined;\n          item.creative_name = item.creative_name || item2.creative_name || undefined;\n          item.creative_slot = item.creative_slot || item2.creative_slot || undefined;\n          item.promotion_id = item.promotion_id || item2.promotion_id || undefined;\n          item.promotion_name = item.promotion_name || item2.promotion_name || undefined;\n          item.location_id = item.location_id || item2.location_id || undefined;\n          item.index = item.index || item2.index || undefined;\n        }\n    });\n  });\n    output = items ? items : undefined;\n      \n    if(data.removeNullfromItems && output) {\n      output.forEach(function(object){\n        for(let key in object) {\n          if(object[key] === null || object[key] === '' || object[key] === 'null' || object[key] === 'undefined')\n            object[key] = undefined;\n          }\n      });    \n    }\n  }\n  return output;\n}\n\nif(data.deleteAttribution === true && event_name === 'purchase') {\n  let extract = {search_term:undefined,items:[{item_id:\"helper_id\"}],promotion:undefined,timestamp:timestamp};\n      extract = jsonData && extract ? JSON.stringify(extract) : extract;\n        return extract;\n}\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"read_data_layer\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"allowedKeys\",\n          \"value\": {\n            \"type\": 1,\n            \"string\": \"specific\"\n          }\n        },\n        {\n          \"key\": \"keyPatterns\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 1,\n                \"string\": \"ecommerce.*\"\n              },\n              {\n                \"type\": 1,\n                \"string\": \"event\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"get_cookies\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"cookieAccess\",\n          \"value\": {\n            \"type\": 1,\n            \"string\": \"any\"\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nCreated on 2/26/2023, 4:34:54 PM\n\n\n"
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "templateId": "388",
+                "name": "Local Storage Interact",
+                "fingerprint": "1746289570184",
+                "templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"TAG\",\n  \"id\": \"cvt_MJS6W\",\n  \"version\": 1,\n  \"displayName\": \"Local Storage Interact\",\n  \"categories\": [\n    \"ANALYTICS\"\n  ],\n  \"brand\": {\n    \"id\": \"github.com_gtm-templates-anto-hed\",\n    \"displayName\": \"gtm-templates-anto-hed\",\n    \"thumbnail\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAMAAADDpiTIAAABLFBMVEUAAABEREBEREBEREBEREBEREBEREBEREBEREBEREBEREBEREBEREBEREBEREAAAAAEBAQFBQUHBwYICAcICAgCAgICAgILCwsNDQwKCgoJCQkGBgYBAQEAAAAAAAABAQEEBAQFBQUAAAAHBwYdHRsfHx0AAAAAAAABAQEEBAQFBQUAAAAAAAAAAAAAAAABAQEICAcJCQgBAQEGBgYHBwYAAAAAAAACAgINDQwODg0PDw4FBQUGBgYGBgYFBQUBAQEAAAAAAAAAAAABAQEFBQQFBQUAAAAAAAABAQEEBAQAAAAAAAAAAAAAAAAFBQQWFhUYGBcbGxkAAAAFBQUFBQQAAAAAAAAAAAAGBgUEBAQBAQEDAwMAAAABAQECAgIEBAMEBAQDAwMDAwIBAQBqjzXfAAAAXHRSTlMAAQIDBAUGBwgJCgsMDg9IS0xNT09JSlJTUVBNSdHMzM/PFBYhIoDW1tjYs16ZcHF4eZqenyQ9P0dJPhyyq6unpsjExMfIkvT09c1rEh4gKiwnDcvLrTMauNPRSuQyuAQAAA1gSURBVHja7Z09jyNZFYbPse/012oEmwDSBqDRChK0EyAQIpmMBBHzFxEREh85ARLSQIIQgxZpEJpdERCg3REz3dNtHwK73FXVHle5y12Uz/tUNHqtdu2+z7XdXX7q3GIc0kdpB+5mEWQqWXsBzM3MlmQyWXMB+NzNYkGmkzUWgBc3i0WQ6WT1BeAnbhbXzZ8hS53VF4Cfulm8a/4MWerM/HYBzM7cLK4aj5PlznwWmwUwO3ezuGz80kiWO/N5bD4CZuczs3jb/JkLJ0ucebHNAvAzN483zZ/5wM3I0mZ+EmHrj4DV7wf/3fIzZGmzEwtbL4DV3wdv6EgpO4uwWFix6vrAWzpSys4tLBar6wDzLb8z0lHu7MLC4ibMypr/FR1JZRbra0LF3O5cH6Kj9FlU14SK3b0+TEcK2eWKebE73w/RkUJW/c5fzAz+etnmb/5i0XRG6EgrKxbwV85aTiAdqWUF/tpZoQ/trNCHdFZfAPQhyL/uBNKHXNZwAi/oQ45/wwmkDzn+LSeQjsT44wTiBOIE6mY4gTiBsTArXzFzd3dvXBM8Xc0RmJElzebmV2f+2qz81Ny8PUfAZ24WyyDLmtnMFkuzzZVA+ItlYb5iXszuzJGhI4HM3lltAcBfLZtd2+0CgL9eNrfbBQB/weyqtgDgr5wV+GtnBf7aWaEP7azQh3TWmBNIH3r8awvg9IY+5Pj7rRNoS/rQ4197B3i0dDrS479ZACdBR2r8ZxabBTCDvyB/27wDzMxsdkNHSvxPbswqLdyrNwE6UslOl7HyQIqt9hHyd0ZHQtnSbPU9cFm//uGvlS1naw8QJ1AzwwlUz3ACtTOcQPGsjxP4O99kq3tLms9DdjxZPGvz7eMEPnq5zriX7tizJ+9/T+jhBNJlppkw+zuB9JaZf7cTSG+p+Xc6gfSWm3+XE0hvyfl3OIH0lpx/hxNIb9n573YC6S0//51OIL3l5t/lBDq9Jedv1ukE0mWKzO/rBNJlnuw+TiC9ZeXfzwmkt7T8ezmBQW9p+e/vBNLlMWcx2Amky6POBjuBdJntmsB+cwLpLd01ob3mBNJb4muCOIE4gfDHCYS/Kn+cQJxA+CvzxwnECawOnECcQPjjBNYfpjecQLrECaRLnEC6TJDhBMK/xhcnECcQJ1CYP06gVoYTKJ7hBJK1+OIEavPHCRTnjxMI/60LAP44gcP5f9s3z3f/ObflRed5v3s98Bzm7vYZTuChX/+nT3c8X9/sj93nnX3fDjA3+xVO4EO9/w9i4yOcQ+x699hO4BhsDjBLHyewOpaS/GV+3x3bCYS/thMIf20ncDibHt9FO/yn6gSO99qE/xSdQPhrO4GP4K/tBDr8cQLHYBPwn6wTOMprE/6TdQLHf2+G/5ScQPhrO4EBf20n8PqY+KvdAz+2Ezh5/vJOwMM6gfDXnhMIf+05gWN8NsMfJxD+OIEDMpzA6sAJxAmEP05g/eF7nu/s0+H369hX/9Z53sd/H3iOVoYTeCAn8PlI/59/5l4/5gSSMSeQrF/GnED41/gyJ5A5gcwJFObPnECtjDmB4hlzAslafJkTqM2fOYHi/JkTCP+tCwD+OIHwxwmkN5xAehPhz97BOIHVwd7BOIHwxwmsP0xvOIF0iRNIlziBdJkgwwmEf40vTiBOIE6gMH+cQK0MJ1A8wwkka/HFCdTmjxMozh8nEP5bFwD8cQLhjxNIbziB9CbCHycQJ7A6cAJxAuGPE1h/mN5wAukSJ5AuVZ3Ar3/D3etZRKzfGMiOK1veywn8+IBzmMkmlvVyAuktb9bHCaS3xNneTiBZsmxPJ5AsWbanE0iWLdvPCSRLl+3lBJIlzno4gWSZs24nkCx1VuhDOyv0IZ11OYFkyfl3OIF0lJx/hxNIR9n573YC6Sg//51OIB3l5t/lBNJRdv5mnU4gvaXl32tOIL1lzfrNCaQ3nECynBlOoHiGE6ie4QRqZ32cwM9vby9Z3ScYW+4dJDuGLD5q8+3jBP7zZZVxf92RZ08+avNlTqBoxpxA+DMnEP72ngUAf+YEwp85gfTGnEB6E+HPnEDmBFb/Zk4gcwKZE8icwPrPMCeQOYF0qTwnkN7YO5je2DuYLjPyZ+9g9g5m72ChjL2DxTP2DiZr8WXvYG3+OIHi/HEC4b91AcAfJxD+OIH0hhNIbyL8cQJxAqsDJxAnEP44gfWH6Q0nkC5xAukSJ5AuE2Q4gfCv8cUJxAnECRTmjxOoleEEimc4gWQtvjiB2vxxAsX54wTCf+sCOAj/H/vt87lZ+4+Mftn8t53n/cnNwHOYudvvcQIP/fr/19Ndz9cze9593lefDDyH3PWusZ3AQWzGOAf8H9QJHMTG4X/sTuAYbA6wlwJOYHUsJfnL/L0zthMIf20nEP7aTuBwNj2+i3b4T9UJHO+1Cf8pOoHw13YCH8Ff2wl0+OMEjsEm4D9ZJ3CU1yb8J+sEjv/eDP8pOYHw13YCA/7aTuD1MfFXuwd+bCdw8vzlnYCHnRMIf+05gfDHCcQJxAm8V4YTiBOIE4gT+PD8cQKrfx/OCfzmF5v38Njyvt4v+86rzvN+/OXAc7QznMDDXCP59Uj/T7/kXj/mBJIxJ5CMOYFkPTLmBMK/xpc5gcwJZE6gMH/mBGplzAkUz5gTSNbiy5xAbf7MCRTnz5xA+G9dAPDHCYQ/TiC94QTSmwh/9g7GCawO9g7GCYQ/TmD9YXrDCaRLnEC6xAmkywQZTiD8a3xxAnECcQKF+eMEamU4geIZTiBZiy9OoDZ/nEBx/jiB8N+6AOCPEwh/nEB6wwmkNxH+OIE4gdWBE4gTCH+cwPrD9IYTSJfCTuDTLw85h5Xs/5h9eC8n8PHjA85hJptW1s8JpLe0WS8nkN7yZn2cQHpLnO3tBJIly/Z0AsmSZXs6gWTZsv2cQLJ02V5OIFnirIcTSJY563YCyVJnhT60s0If0lmXE0iWnH+HE0hHyfl3OIF0lJ3/bieQjvLz3+kE0lFu/l1OIB1l52/WOSeQ3tLy7zUnkN5wAslSZjiBOIE4gcoZTqB61sMJvPr3bRYR65tOyI4w+9ppm28fJ/BPLzcZ99cdd/bkR22+zAlUzZgTCH/mBMLf3rMA4M+cQPgzJ5DemBNIbyL8mRPInMDqYE4gcwLhz5zA+sP0xpxAuhSeE0hv7B1Ml+wdTJcZ+bN3MHsHs3ewMn/2DtbK2DtYPGPvYLIWX5xAbf44geL8cQLhv3UBwB8nEP44gfSGE0hvIvxxAnECqwMnECcQ/jiB9YfpDSeQLnEC6RInkC4TZDiB8K/xxQnECcQJFOaPE6iV4QSKZziBZC2+OIHa/B/UCfye15/Pt3wG9ci+9YvO8/7sHwPPYWbmf8UJPPTr//Lp7ufrlT3vPu+LTwaew8x89gIn8AHf/4ewGeMcatc7xnYC4a/tBA5iA/+jdwIHsXH4H7sTOAabA+ylgRNYHUtJ/jLXO8Z2AuGv7QTCX9sJHM6mx3fRDv+pOoHjvTbhP0UnEP7aTuAj+Gs7gQ5/nMAx2AT8J+sEjvLahP9kncDx35vhPyUnEP7aTmDAX9sJvD4m/mr3wI89JxAnCCcQ/jiB8McJfKjPZvjjBMJ/Yk7g1fMaw3ver+NPP+887/L5wHNo3QM/nhP46SH++7v521+4128wf+YEqvNnTqAwf+YEMieQOYEaGXMCyZgTCP86X+YEMieQOYHC/JkTqJUxJ1A8Y04gWYsvcwK1+bN3sDh/9g6G/9YFAH+cQPjjBNIbTiC9ifBn72CcwOpg72CcQPjjBNYfpjecQLrECaRLnEC6TJDhBMK/xhcnECcQJ1CYP06gVoYTKJ7hBJK1+OIEavPHCRTnjxMI/60LAP44gfDHCaQ3nEB6E+GPE4gTWB04gTiB8McJrD9Mb9pO4A/+YBbxYSNbzdclO7Lsh/dyAk+fHXL/J7JpZf2cQHrLmvVzAuktbdbLCaS3vFkfJ5DeEmd7O4FkybI9nUCyZNmeTiBZtmw/J5AsXbaXE0iWOOvhBJJlzrqdQLLUWaEP7azQh/Z3QoU+pPl3OIF0lJx/hxNIR9n573YC6Sg//51OIB3l5t/lBNJRdv5mnXMC6Q0nkCxjhhOIE4gTqJzhBIpnt07grx4/+41/8Lrx+bC6t+SKLG8W89mKefni9c998Z/647PllvvNyHJlyzfrrJjZgnuC5bKKvxVrjgSmI7GstJxQOhLLWk4gHallBf7aWaEP7azQh3RWXwD0IcjfC30IZz67dQJnF/Qhx38em4+A2Tl9yPEvtlkAfkYfcvxPImz9EeCn9CGXnVjYegH4SeP7ATpSyM4iLBYrJay4WbylI6Xs3MJisboOMHezuKQjpezCwuJmJYXO3Syu6Egqs7B4t5JC3Wz9bzrSycLiKqxaAHENf7nscsW8mFnghOllb3ECpTOcQLLNAoA/TiB9yGYtJ/DC4s41YbLMWdMJPLe4c02YLHXWcALPLO5cEyZLnTXmBJ7E5voQmUZWdwL9ZHN9mEwlqzmBXmL9/VB9eZClzmpOoM8t2teEybJnXpNCI8wWjY8HMoGs+gjw9cyoxgIhE8j+ByQrhE8IZG0GAAAAAElFTkSuQmCC\"\n  },\n  \"description\": \"This template allows you to easily interact with the Local Storage, set, get, remove or check if an item is present!\",\n  \"containerContexts\": [\n    \"WEB\"\n  ]\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[\n  {\n    \"type\": \"GROUP\",\n    \"name\": \"group1\",\n    \"displayName\": \"\",\n    \"groupStyle\": \"NO_ZIPPY\",\n    \"subParams\": [\n      {\n        \"type\": \"SELECT\",\n        \"name\": \"action\",\n        \"displayName\": \"Action\",\n        \"macrosInSelect\": false,\n        \"selectItems\": [\n          {\n            \"value\": \"set\",\n            \"displayValue\": \"set\"\n          },\n          {\n            \"value\": \"get\",\n            \"displayValue\": \"get\"\n          },\n          {\n            \"value\": \"remove\",\n            \"displayValue\": \"remove\"\n          },\n          {\n            \"value\": \"check\",\n            \"displayValue\": \"check\"\n          }\n        ],\n        \"simpleValueType\": true,\n        \"help\": \"Action determines what do you want to do with an item in Local Storage (set an item in Local Storage; get an item from Local Storage; remove an item in Local Storage;  check if the value of an item is already present in Local Storage if the value checked is already present in Local Storage, a dataLayer push is sent with alreadyInLocalStorage \\u003d true)\"\n      },\n      {\n        \"type\": \"TEXT\",\n        \"name\": \"key\",\n        \"displayName\": \"Key\",\n        \"simpleValueType\": true,\n        \"help\": \"The Key defined must be added in the Custom Template Permissions before (please see the documentation for more details)\"\n      },\n      {\n        \"type\": \"TEXT\",\n        \"name\": \"value\",\n        \"displayName\": \"Value\",\n        \"simpleValueType\": true,\n        \"enablingConditions\": [\n          {\n            \"paramName\": \"action\",\n            \"paramValue\": \"set\",\n            \"type\": \"EQUALS\"\n          }\n        ]\n      },\n      {\n        \"type\": \"TEXT\",\n        \"name\": \"checkValue\",\n        \"displayName\": \"Value\",\n        \"simpleValueType\": true,\n        \"enablingConditions\": [\n          {\n            \"paramName\": \"action\",\n            \"paramValue\": \"check\",\n            \"type\": \"EQUALS\"\n          }\n        ]\n      }\n    ]\n  }\n]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\n// Enter your template code here.\nconst log = require('logToConsole');\nvar createQueue = require('createQueue');\nvar query = require('queryPermission');\nvar dataPush = createQueue('dataLayer');\nlog('data =', data);\n\nconst localStorage = require('localStorage');\nconst queryPermission = require('queryPermission');\n// log('data =', data);\n\nconst key = data.key;\nconst value = data.value;\nconst action = data.action;\nconst checkValue = data.checkValue;\n\nif (action === 'set'){\n  localStorage.setItem(key, value);\n}\n\nif (action === 'get'){\n  localStorage.getItem(key);\n}\n\nif (action === 'remove'){\n  localStorage.removeItem(key);\n}\n\nif (action === 'check' && localStorage.getItem(key) === checkValue){\n  dataPush({\n    'alreadyInLocalStorage' : true\n  });\n}\n\nlog(action);\nlog(key);\nlog(value);\nlog(checkValue);\n\ndata.gtmOnSuccess();\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"logging\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"environments\",\n          \"value\": {\n            \"type\": 1,\n            \"string\": \"debug\"\n          }\n        }\n      ]\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_local_storage\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keys\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"internal\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_globals\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keys\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"execute\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"dataLayer\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nCreated on 10/21/2020, 4:07:45 PM\n\n\n",
+                "galleryReference": {
+                    "host": "github.com",
+                    "owner": "gtm-templates-anto-hed",
+                    "repository": "gtm-local-storage-interact",
+                    "version": "bb12cd8f0bb7ff7d475674bbf930a9e96e6f2f74",
+                    "signature": "a351134b06ebda647fff2abd15d29987edf09681a7319c626dc0119a4aba88c5",
+                    "galleryTemplateId": "MJS6W"
+                }
+            },
+            {
+                "accountId": "12345",
+                "containerId": "56789",
+                "templateId": "389",
+                "name": "Local Storage Checker",
+                "fingerprint": "1746294854698",
+                "templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"MACRO\",\n  \"id\": \"cvt_TBWKQ\",\n  \"version\": 1,\n  \"displayName\": \"Local Storage Checker\",\n  \"description\": \"This template allows you to easily interact with the Local Storage, set, get, remove or check if an item is present!\",\n  \"containerContexts\": [\n    \"WEB\"\n  ],\n  \"brand\": {\n    \"displayName\": \"gtm-templates-anto-hed\",\n    \"id\": \"github.com_gtm-templates-anto-hed\"\n  }\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[\n  {\n    \"type\": \"GROUP\",\n    \"name\": \"group1\",\n    \"displayName\": \"\",\n    \"groupStyle\": \"NO_ZIPPY\",\n    \"subParams\": [\n      {\n        \"type\": \"SELECT\",\n        \"name\": \"action\",\n        \"displayName\": \"Action\",\n        \"macrosInSelect\": false,\n        \"selectItems\": [\n          {\n            \"value\": \"set\",\n            \"displayValue\": \"set\"\n          },\n          {\n            \"value\": \"get\",\n            \"displayValue\": \"get\"\n          },\n          {\n            \"value\": \"remove\",\n            \"displayValue\": \"remove\"\n          },\n          {\n            \"value\": \"check\",\n            \"displayValue\": \"check\"\n          }\n        ],\n        \"simpleValueType\": true,\n        \"help\": \"Action determines what do you want to do with an item in Local Storage (set an item in Local Storage; get an item from Local Storage; remove an item in Local Storage;  check if the value of an item is already present in Local Storage if the value checked is already present in Local Storage, a dataLayer push is sent with localStorage_check \\u003d true)\"\n      },\n      {\n        \"type\": \"TEXT\",\n        \"name\": \"key\",\n        \"displayName\": \"Key\",\n        \"simpleValueType\": true,\n        \"help\": \"The Key defined must be added in the Custom Template Permissions before (please see the documentation for more details)\"\n      },\n      {\n        \"type\": \"TEXT\",\n        \"name\": \"value\",\n        \"displayName\": \"Value\",\n        \"simpleValueType\": true,\n        \"enablingConditions\": [\n          {\n            \"paramName\": \"action\",\n            \"paramValue\": \"set\",\n            \"type\": \"EQUALS\"\n          }\n        ]\n      },\n      {\n        \"type\": \"TEXT\",\n        \"name\": \"checkValue\",\n        \"displayName\": \"Value\",\n        \"simpleValueType\": true,\n        \"enablingConditions\": [\n          {\n            \"paramName\": \"action\",\n            \"paramValue\": \"check\",\n            \"type\": \"EQUALS\"\n          }\n        ]\n      }\n    ]\n  }\n]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\n// Enter your template code here.\nconst log = require('logToConsole');\nvar createQueue = require('createQueue');\nconst localStorage = require('localStorage');\nconst queryPermission = require('queryPermission');\nlog('data =', data);\n\nconst key = data.key;\nconst value = data.value;\nconst action = data.action;\nconst checkValue = data.checkValue;\n\nif (action === 'set'){\n  localStorage.setItem(key, value);\n  return value;\n}\n\nif (action === 'get'){\n  localStorage.getItem(key);\n  return localStorage.getItem(key);\n}\n\nif (action === 'remove'){\n  localStorage.removeItem(key);\n  return true;\n}\n\nif (action === 'check' && localStorage.getItem(key) === checkValue){\n  return true;\n} else {\n  return false;\n}\n\nlog(action);\nlog(key);\nlog(value);\nlog(checkValue);\n\ndata.gtmOnSuccess();\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"logging\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"environments\",\n          \"value\": {\n            \"type\": 1,\n            \"string\": \"debug\"\n          }\n        }\n      ]\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_local_storage\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keys\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"internal\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_globals\",\n        \"versionId\": \"1\"\n      },\n      \"param\": []\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nCreated on 23/11/2020 à 16:02:46\n\n\n",
+                "galleryReference": {
+                    "host": "github.com",
+                    "owner": "gtm-templates-anto-hed",
+                    "repository": "local-storage-checker",
+                    "version": "a3e522d31a5ab220f7a14f02e36a4c5c2255fe3f",
+                    "signature": "7851e18b25463d92eb9b47432b56181129096787ca0e1a07b4221fa0f6838726",
+                    "galleryTemplateId": "TBWKQ"
+                }
+            }
+        ]
+    }
+}

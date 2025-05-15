@@ -25,17 +25,26 @@ A similar Variable [do also exist for **Server-side GTM**](https://github.com/gt
 
 In the following documentation, **Local Storage** will be used to handle the attribution.
 
-## GTM (Web) Setup
+## Quick Setup
+
+1. Create a new Workspace in GTM
+2. Import [**GTM-container.json**](GTM-container.json) to this Workspace
+    * Choose an import option: Merge
+        * Rename conflicting tags, triggers and variables.
+3. Adjust the imported **GA4 Tags** to fit your setup
+4. Other adjustments is up to you. You will maybe have to clean up conflicting Tags, Variables and Triggers.
+
+## Manual Setup
 Install the following GTM (Web) Templates:
 * GA4 - Item List & Promotion Attribution (this Variable Template)
 *	[Local Storage Interact](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/gtm-local-storage-interact) Tag
 * [Local Storage Checker](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/local-storage-checker) Variable
 
 ### Create Variables
-We must create a decent number of Variables. Suggested Variable names are listed below, and are also used throughout the documentation.
+We must create some Variables. Suggested Variable names are listed below, and are also used throughout the documentation.
 *	ecom - attribution time - minutes - C
-*	ecom - item_list & promotion - Local Storage
-*	ecom - item_list & promotion - extract - CT
+*	ecom - items - item_list & promotion - LSC
+*	ecom - items - item_list & promotion - extract - CT
 *	ecom - items - item_list & promotion - merge - CT
 *	++
 
@@ -50,18 +59,18 @@ How long the attribution time should be is up to you. Time is counted from the l
 
 * Name the Variable **ecom - attribution time - minutes - C**.
 
-### ecom - item_list & promotion - Local Storage
-We are using the **Local Storage Checker** to read data from Local Storage. 
+### ecom - items - item_list & promotion - LSC
+We are using the [**Local Storage Checker**](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/local-storage-checker) to read data from Local Storage. 
 For some unknown reason, this Variable doesn't allow any Key to be used without changing the Template, so for simplicity in this documentation we stick to one of the allowed Keys:
 
 *	**Action:** get
 *	**Key:** internal
 
-![ecom - item_list & promotion - Local Storage](images/Variable-Local-Storage.png)
+![ecom - items - item_list & promotion - LSC](images/Variable-Local-Storage.png)
 
-* Name the Variable **ecom - item_list & promotion - Local Storage**.
+* Name the Variable **ecom - items - item_list & promotion - LSC**.
 
-### ecom - item_list & promotion - extract - CT
+### ecom - items - item_list & promotion - extract - CT
 Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
 *	**Variable Type:** Extract Item Lists & Promotion for Attribution
@@ -82,9 +91,9 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution** Variable (thi
   * **Handle data as string:** This will save attribution data as a string. Tick this box with this setup.
   * **Limit Items:** This will limit number of Items stored. You should probably limit number of items, but that is up to you. You can store up to 5MB in Local Storage.
 
-![ecom - item_list & promotion - extract – CT](images/gtm-ga4-item_list-and-promotion-extract-CT.png)
+![ecom - items - item_list & promotion - extract - CT](images/gtm-ga4-item_list-and-promotion-extract-CT.png)
 
-* Name the Variable **ecom - item_list & promotion - extract - CT**.
+* Name the Variable **ecom - items - item_list & promotion - extract - CT**.
 
 ### ecom - items - item_list & promotion - merge - CT
 
@@ -101,7 +110,7 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
      * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
    * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
 
-![ecom - items - item_list & promotion - merge – CT](images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
+![ecom - items - item_list & promotion - merge - CT](images/gtm-ga4-items-item_list-and-promotion-merge-CT.png)
 
 *	Name the Variable **ecom - items - item_list & promotion - merge - CT**.
 
@@ -117,33 +126,33 @@ In addition, you must create **Promotion & Search Term Variables** using the sam
 | ecom - search_term - merge - CT | Search Term |	
 
 ## Trigger
-### ecom - attribute Events
+### ecom - Attribute Events - Item List & Promotion - CE
 
 Create a **Custom Event Trigger** with the following settings:
 
-*	**Event Name:** ^(select_item|select_promotion|add_to_cart|purchase)$
+*	**Event Name:** ^(select_item|select_promotion|add_to_cart|view_search_results)$
     * **purchase** Event in RegEx is only needed if you want to delete/reset attribution data after purchase
 *	**Use regex matching:** Tick the box
 *	**This trigger fires on:* Some Custom Events
 *	**ecom – item_list & promotion – extract – CT** _does not equal_ undefined
 
-![ecom - select_item, select_promotion & add_to_cart](images/Trigger-Local-Storage-Tag.png)
+![ecom - Attribute Events - Item List & Promotion - CE](images/Trigger-Local-Storage-Tag.png)
 
-*	Name the Trigger **ecom - attribute Events**.
+*	Name the Trigger **ecom - Attribute Events - Item List & Promotion - CE**.
 
 ## Tags
 
-### Ecom - Item List & Promotion Attribution – Local Storage
+### Ecom - Item List & Promotion Attribution – LSI
 Select the **Local Storage Interact** Tag, and add the following settings:
 
 * **Action:** set
 * **Key:** internal
 * **Value:** {{ecom - item_list & promotion - extract - CT}}
 
-![Ecom - Item List & Promotion Attribution – Local Storage](images/Tag-Local-Storage.png)
+![Ecom - Item List & Promotion Attribution – LSI](images/Tag-Local-Storage.png)
 
-* Add **ecom - select_item, select_promotion & add_to_cart** as a Trigger to the Tag.
-* * If you want to track **search_term**, add the same Trigger as you are using for tracking your **view_search_results** Event.
+* Add **ecom - Attribute Events - Item List & Promotion - CE** as a **Trigger** to the Tag.
+
 
 ### GA4 Tag – Parameters
 All GA4 Ecommerce Tags that should use attributed data have to be changed. These are the recommended GA4 Events:
@@ -167,10 +176,10 @@ The following Parameters should be changed in the Tags with those Events:
 | items | {{ecom - items - item_list & promotion - merge - CT}} |  |
 | promotion_name | {{ecom - promo - promotion_name - merge - CT}} | If Promotion without Items is implemented |
 | promotion_id | {{ecom - promo - promotion_id - merge - CT}} | If Promotion without Items is implemented |
-| creative_name | {{ecom - promo - creative_name - merge - CT}} |	 If Promotion without Items is implemented |
+| creative_name | {{ecom - promo - creative_name - merge - CT}} | If Promotion without Items is implemented |
 | creative_slot | {{ecom - promo - creative_slot - merge - CT}} | If Promotion without Items is implemented |
-| location_id | {{ecom - location_id - merge - CT}} |	 If Promotion without Items is implemented |
-| search_term | {{ecom - search_term - merge - CT}} |	 If you want to attribute search_term |
+| location_id | {{ecom - location_id - merge - CT}} | If Promotion without Items is implemented |
+| search_term | {{ecom - search_term - merge - CT}} | If you want to attribute search_term |
 
 ![GA4 Tag - Parameters](images/Tag-GA4-Tag.png)
 

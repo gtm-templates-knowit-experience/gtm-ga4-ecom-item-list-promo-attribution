@@ -449,14 +449,17 @@ if (gaCookie) {
   }
 }
 
-ga_session_id = ga_session_id && getType(ga_session_id) === 'number' ? ga_session_id : 1800000; // Fallback to 30 minutes "just in case".
+ga_session_id = ga_session_id && getType(ga_session_id) === 'number' ? ga_session_id : getTimestampMillis(); // Fallback to getTimestampMillis() "just in case".
 
 const timestamp = data.attributionTime ? getTimestampMillis() : ga_session_id;
-const timestamp2 = secondDataSource ? secondDataSource.timestamp : timestamp;
+const timestamp2 = secondDataSource && secondDataSource.timestamp ? secondDataSource.timestamp : timestamp;
 const timestampDiff = secondDataSource && data.attributionTime ? timestamp-secondDataSource.timestamp : timestamp;
 const attributionTime = data.attributionTime ? makeInteger(data.attributionTime)*60000 : timestamp2;
 const attributionType = data.attributionType;
 const limitItemsNumber = data.limitItemsNumber;
+
+function hasValue(v) { return v !== undefined && v !== null && v !== ''; }
+function isMissing(v) { return v === undefined || v === null || v === ''; }
 
 if(timestampDiff > attributionTime) {
   items2 = [{item_id:"helper_id"}];
@@ -465,62 +468,121 @@ if(timestampDiff > attributionTime) {
 }
 
 if(data.variableType === 'attribution') {
-  let item_list_id = ecom ? ecom.item_list_id : undefined;
-  let item_list_name = ecom ? ecom.item_list_name : undefined;
-  let creative_name = ecom ? ecom.creative_name : undefined;
-  let creative_slot = ecom ? ecom.creative_slot : undefined;
-  let promotion_id = ecom ? ecom.promotion_id : undefined;
-  let promotion_name = ecom ? ecom.promotion_name : undefined;
-  let location_id = ecom ? ecom.location_id : undefined;
-  let index = ecom ? ecom.index : undefined;
+  let item_list_id = hasValue(ecom && ecom.item_list_id) ? ecom.item_list_id : undefined;
+  let item_list_name = hasValue(ecom && ecom.item_list_name) ? ecom.item_list_name : undefined;
+  let creative_name = hasValue(ecom && ecom.creative_name) ? ecom.creative_name : undefined;
+  let creative_slot = hasValue(ecom && ecom.creative_slot) ? ecom.creative_slot : undefined;
+  let promotion_id = hasValue(ecom && ecom.promotion_id) ? ecom.promotion_id : undefined;
+  let promotion_name = hasValue(ecom && ecom.promotion_name) ? ecom.promotion_name : undefined;
+  let location_id = hasValue(ecom && ecom.location_id) ? ecom.location_id : undefined;
+  let index = hasValue(ecom && ecom.index) ? ecom.index : undefined;
   
  if (items) {
     const mapItemsData = i => {
       const itemObj = {
         item_id: i.item_id,
-        item_list_id: i.item_list_id || item_list_id,
-        item_list_name: i.item_list_name || item_list_name,
-        creative_name: i.creative_name || creative_name,
-        creative_slot: i.creative_slot || creative_slot,
-        promotion_id: i.promotion_id || promotion_id,
-        promotion_name: i.promotion_name || promotion_name,
-        location_id: i.location_id || location_id,
-        index: i.index || index
+        item_list_id: hasValue(i.item_list_id) ? i.item_list_id : item_list_id,
+        item_list_name: hasValue(i.item_list_name) ? i.item_list_name : item_list_name,
+        creative_name: hasValue(i.creative_name) ? i.creative_name : creative_name,
+        creative_slot: hasValue(i.creative_slot) ? i.creative_slot : creative_slot,
+        promotion_id: hasValue(i.promotion_id) ? i.promotion_id : promotion_id,
+        promotion_name: hasValue(i.promotion_name) ? i.promotion_name : promotion_name,
+        location_id: hasValue(i.location_id) ? i.location_id : location_id,
+        index: hasValue(i.index) ? i.index : index
       };
       return itemObj;
     };
     
-    const items1 = items.map(mapItemsData); 
-    const item_id = items1[0].item_id ? items1[0].item_id : undefined;
-    item_list_id = items1[0].item_list_id ? items1[0].item_list_id : undefined;
-    item_list_name = items1[0].item_list_name ? items1[0].item_list_name : undefined;
-    promotion_id = items1[0].promotion_id ? items1[0].promotion_id : promotion_id;
-    promotion_name = items1[0].promotion_name ? items1[0].promotion_name : promotion_name;
-    creative_name = items1[0].creative_name ? items1[0].creative_name : creative_name;
-    creative_slot = items1[0].creative_slot ? items1[0].creative_slot : creative_slot;
-    location_id = items1[0].location_id ? items1[0].location_id : location_id;
+    const items1 = items.map(mapItemsData);
+    const first = items1[0] || {};
+   
+    const item_id = first.item_id ? first.item_id : undefined;
+    item_list_id = hasValue(first.item_list_id) ? first.item_list_id : undefined;
+    item_list_name = hasValue(first.item_list_name) ? first.item_list_name : undefined;
+    promotion_id = hasValue(first.promotion_id) ? first.promotion_id : promotion_id;
+    promotion_name = hasValue(first.promotion_name) ? first.promotion_name : promotion_name;
+    creative_name = hasValue(first.creative_name) ? first.creative_name : creative_name;
+    creative_slot = hasValue(first.creative_slot) ? first.creative_slot : creative_slot;
+    location_id = hasValue(first.location_id) ? first.location_id : location_id;
 
   if (items1 && item_id && (item_list_id || item_list_name || promotion_id || promotion_name)) {
     const firstClick = attributionType === 'firstClickAttribution';
     const combined = firstClick ? items2.concat(items1) : items1.concat(items2);  // first vs. last click attribution
 
     const mergedMap = {};
-    combined.forEach(x => {
-      const id = x.item_id;
-      if (!mergedMap[id]) mergedMap[id] = { item_id: id };
-      const tgt = mergedMap[id];
+    for (let i = 0; i < items2.length; i++) {
+      const oldRec = items2[i];
+      // shallow‐clone oldRec into a brand‐new object
+      const clone = {};
+      const flds  = Object.keys(oldRec);
+      for (let j = 0; j < flds.length; j++) {
+        const k = flds[j];
+        clone[k] = oldRec[k];
+      }
+      mergedMap[oldRec.item_id] = clone;
+    }
 
-      ['item_list_id','item_list_name',
-       'promotion_id','promotion_name','creative_name','creative_slot',
-       'location_id','index'
-      ].forEach(field => {
-        if (x[field] !== undefined && tgt[field] === undefined) {
-          tgt[field] = x[field];
+    // ================
+    // 2) MERGE ONLY the NEW `items1` records
+    // ================
+    items1.forEach(rec1 => {
+      const id = rec1.item_id;
+      let tgt   = mergedMap[id];
+      if (!tgt) {
+        // no seed existed, start fresh
+        tgt = { item_id: id };
+      }
+
+      const isListEvent = hasValue(rec1.item_list_id) || hasValue(rec1.item_list_name);
+
+      // Item‐List group    
+      if (isListEvent) {
+        if (attributionType === 'firstClickAttribution') {
+          if (isMissing(tgt.item_list_id)) tgt.item_list_id = rec1.item_list_id;
+          if (isMissing(tgt.item_list_name)) tgt.item_list_name = rec1.item_list_name;
+        } else {
+          // overwrite even if rec1.[…] is null (you may guard if you don’t want to write nulls)
+          tgt.item_list_id = rec1.item_list_id;
+          tgt.item_list_name = rec1.item_list_name;
         }
-      });
+      }
+
+      const isPromoEvent = hasValue(rec1.promotion_id) || hasValue(rec1.promotion_name);
+      
+      // Promotion group   
+      if (isPromoEvent) {
+        if (attributionType === 'firstClickAttribution') {
+          if (isMissing(tgt.promotion_id))   tgt.promotion_id   = rec1.promotion_id;
+          if (isMissing(tgt.promotion_name)) tgt.promotion_name = rec1.promotion_name;
+          if (isMissing(tgt.creative_name))  tgt.creative_name  = rec1.creative_name;
+          if (isMissing(tgt.creative_slot))  tgt.creative_slot  = rec1.creative_slot;
+        } else {
+          tgt.promotion_id   = rec1.promotion_id;
+          tgt.promotion_name = rec1.promotion_name;
+          tgt.creative_name  = rec1.creative_name;
+          tgt.creative_slot  = rec1.creative_slot;
+        }
+      }
+      
+      // Location & index
+      if (hasValue(rec1.location_id)) {
+        if (attributionType === 'firstClickAttribution' ? isMissing(tgt.location_id) : true) {
+          tgt.location_id = rec1.location_id;
+        }
+      }
+      if (hasValue(rec1.index)) {
+        if (attributionType === 'firstClickAttribution' ? isMissing(tgt.index) : true) {
+          tgt.index = rec1.index;
+        }
+      }
+      
+     mergedMap[id] = tgt;
     });
 
-    let uniqueItems = Object.keys(mergedMap).map(k => mergedMap[k]);
+    // ================
+    // 3) EXTRACT & LIMIT
+    // ================
+    let uniqueItems = Object.keys(mergedMap).map(function(k){ return mergedMap[k]; });
     if (limitItemsNumber) {
       uniqueItems = uniqueItems.slice(0, makeInteger(limitItemsNumber));
     }
@@ -529,7 +591,7 @@ if(data.variableType === 'attribution') {
       items: uniqueItems,
       promotion: promo2,
       search_term: searchTerm2,
-      timestamp:   timestamp
+      timestamp: timestamp
     };
     return jsonData ? JSON.stringify(extract) : extract;
   }
@@ -543,7 +605,8 @@ if(data.variableType === 'attribution') {
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
-  const searchTerm = data.siteSearchChecbox && data.searchTerm ? data.searchTerm : undefined;
+  
+  const searchTerm = data.siteSearchChecbox && hasValue(data.searchTerm) ? data.searchTerm : undefined;
   if (searchTerm) {
     const siteSearchttribution = attributionType === 'firstClickAttribution' && searchTerm2 ? searchTerm2 : searchTerm;
     let extract = {search_term: siteSearchttribution, items: items2, promotion: promo2, timestamp: timestamp};
