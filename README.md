@@ -271,3 +271,4 @@ In the same scenario, but using First Click Attribution, this would be the resul
     - “**Users Also Looked At**” item list would also be attributed to the sale, since Item Scoped Item Lists & Promotion are independent.
     - None of the Event-level promotions “**Promotion 1 without Items**” or “**Promotion 2 without Items**” would be attributed since Item-level trumps Event-level.
 
+Solution by [**Knowit AI & Analytics**](https://www.knowit.no/) (Oslo, Norway). Not officially supported by Knowit.

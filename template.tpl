@@ -408,9 +408,10 @@ const getTimestampMillis = require('getTimestampMillis');
 const makeInteger = require('makeInteger');
 const makeString = require('makeString');
 const JSON = require('JSON');
-const getCookieValues = require('getCookieValues');
 const Object = require('Object');
-const getType = require('getType');
+const readAnalyticsStorage = require('readAnalyticsStorage');
+const analyticsStorageData = readAnalyticsStorage();
+const log = require('logToConsole');
 
 const jsonData = data.jsonData;
 const secondDataSource = data.secondDataSource && typeof data.secondDataSource === 'string' ? JSON.parse(data.secondDataSource) : data.secondDataSource || undefined;
@@ -421,38 +422,19 @@ let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}]
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
 let searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;
 
-const measurementId = data.measurementId && data.customAttributionTime === false ? data.measurementId.split('-')[1] : undefined;
-const gaCookie = measurementId && makeString(getCookieValues('_ga_' + measurementId));
+const measurementId = data.measurementId;
 let ga_session_id;
 
-if (gaCookie) {
-  // 1) new GS2 format (has $ delimiters)
-  if (gaCookie.indexOf('$') > -1) {
-    // turn all "$" into "." so we only need one split
-    const normalized = gaCookie.split('$').join('.');
-    const segments = normalized.split('.');
-    // find the piece that starts with "s"
-    let sPart;
-    for (let i = 0; i < segments.length; i++) {
-      if (segments[i].charAt(0) === 's') {
-        sPart = segments[i];
-        break;
-      }
+if (analyticsStorageData.sessions && analyticsStorageData.sessions.length) {
+  for (let i = 0; i < analyticsStorageData.sessions.length; i++) {
+    if (analyticsStorageData.sessions[i].measurement_id === measurementId) {
+      ga_session_id = analyticsStorageData.sessions[i].session_id;
     }
-    // strip off the "s" and convert to integer
-    ga_session_id = sPart ? makeInteger(sPart.substring(1)) : undefined;
-  }
-  // 2) old GS1 format (only dots)
-  else if (gaCookie.indexOf('.') > -1) {
-    const parts = gaCookie.split('.');
-    ga_session_id = parts.length > 2 ? makeInteger(parts[2]) : undefined;
   }
 }
 
-ga_session_id = ga_session_id && getType(ga_session_id) === 'number' ? ga_session_id : getTimestampMillis(); // Fallback to getTimestampMillis() "just in case".
-
 const timestamp = data.attributionTime ? getTimestampMillis() : ga_session_id;
-const timestamp2 = secondDataSource && secondDataSource.timestamp ? secondDataSource.timestamp : timestamp;
+const timestamp2 = secondDataSource ? secondDataSource.timestamp : timestamp;
 const timestampDiff = secondDataSource && data.attributionTime ? timestamp-secondDataSource.timestamp : timestamp;
 const attributionTime = data.attributionTime ? makeInteger(data.attributionTime)*60000 : timestamp2;
 const attributionType = data.attributionType;
@@ -541,7 +523,7 @@ if(data.variableType === 'attribution') {
           if (isMissing(tgt.item_list_id)) tgt.item_list_id = rec1.item_list_id;
           if (isMissing(tgt.item_list_name)) tgt.item_list_name = rec1.item_list_name;
         } else {
-          // overwrite even if rec1.[…] is null (you may guard if you don’t want to write nulls)
+          // overwrite even if rec1.[…] is null
           tgt.item_list_id = rec1.item_list_id;
           tgt.item_list_name = rec1.item_list_name;
         }
@@ -552,10 +534,10 @@ if(data.variableType === 'attribution') {
       // Promotion group   
       if (isPromoEvent) {
         if (attributionType === 'firstClickAttribution') {
-          if (isMissing(tgt.promotion_id))   tgt.promotion_id   = rec1.promotion_id;
+          if (isMissing(tgt.promotion_id)) tgt.promotion_id   = rec1.promotion_id;
           if (isMissing(tgt.promotion_name)) tgt.promotion_name = rec1.promotion_name;
-          if (isMissing(tgt.creative_name))  tgt.creative_name  = rec1.creative_name;
-          if (isMissing(tgt.creative_slot))  tgt.creative_slot  = rec1.creative_slot;
+          if (isMissing(tgt.creative_name)) tgt.creative_name  = rec1.creative_name;
+          if (isMissing(tgt.creative_slot)) tgt.creative_slot  = rec1.creative_slot;
         } else {
           tgt.promotion_id   = rec1.promotion_id;
           tgt.promotion_name = rec1.promotion_name;
