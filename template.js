@@ -18,6 +18,8 @@ let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}]
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
 let searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;
 
+let customEvents2 = secondDataSource && secondDataSource.custom_events ? secondDataSource.custom_events : {};
+
 const measurementId = data.measurementId;
 let ga_session_id;
 
@@ -36,6 +38,9 @@ const attributionTime = data.attributionTime ? makeInteger(data.attributionTime)
 const attributionType = data.attributionType;
 const limitItemsNumber = data.limitItemsNumber;
 
+const customItemAttributeParameters = data.customItemAttributeParameters || [];
+const customEventAttributeParameters = data.customEventAttributeParameters || [];
+
 function hasValue(v) { return v !== undefined && v !== null && v !== ''; }
 function isMissing(v) { return v === undefined || v === null || v === ''; }
 
@@ -43,9 +48,17 @@ if(timestampDiff > attributionTime) {
   items2 = [{item_id:"helper_id"}];
   promo2 = undefined;
   searchTerm2 = undefined;
+  customEvents2 = {};
 }
 
 if(data.variableType === 'attribution') {
+
+  if(data.deleteAttribution === true && event_name === 'purchase') {
+    let extract = {search_term:undefined, custom_events: {}, items:[{item_id:"helper_id"}],promotion:undefined,timestamp:timestamp};
+    extract = jsonData && extract ? JSON.stringify(extract) : extract;
+    return extract;
+  }
+
   let item_list_id = hasValue(ecom && ecom.item_list_id) ? ecom.item_list_id : undefined;
   let item_list_name = hasValue(ecom && ecom.item_list_name) ? ecom.item_list_name : undefined;
   let creative_name = hasValue(ecom && ecom.creative_name) ? ecom.creative_name : undefined;
@@ -55,6 +68,33 @@ if(data.variableType === 'attribution') {
   let location_id = hasValue(ecom && ecom.location_id) ? ecom.location_id : undefined;
   let index = hasValue(ecom && ecom.index) ? ecom.index : undefined;
   
+  let currentCustomEvents = {};
+  if (customEventAttributeParameters.length > 0) {
+    customEventAttributeParameters.forEach(row => {
+      const pName = row.parameterName;
+      const pVal = (ecom && hasValue(ecom[pName])) ? ecom[pName] : dataLayer(pName, 2);
+      if (hasValue(pVal)) {
+        currentCustomEvents[pName] = pVal;
+      }
+    });
+  }
+
+  let mergedCustomEvents = {};
+
+  const oldCeKeys = Object.keys(customEvents2 || {});
+  oldCeKeys.forEach(k => { mergedCustomEvents[k] = customEvents2[k]; });
+  
+  const newCeKeys = Object.keys(currentCustomEvents || {});
+  newCeKeys.forEach(k => {
+    if (attributionType === 'firstClickAttribution') {
+      if (isMissing(mergedCustomEvents[k])) {
+        mergedCustomEvents[k] = currentCustomEvents[k];
+      }
+    } else {
+      mergedCustomEvents[k] = currentCustomEvents[k];
+    }
+  });
+
  if (items) {
     const mapItemsData = i => {
       const itemObj = {
@@ -68,6 +108,15 @@ if(data.variableType === 'attribution') {
         location_id: hasValue(i.location_id) ? i.location_id : location_id,
         index: hasValue(i.index) ? i.index : index
       };
+      
+      if (customItemAttributeParameters.length > 0) {
+        customItemAttributeParameters.forEach(row => {
+          const p = row.parameterName;
+          if (hasValue(i[p])) {
+            itemObj[p] = i[p];
+          }
+        });
+      }
       return itemObj;
     };
     
@@ -85,14 +134,13 @@ if(data.variableType === 'attribution') {
 
   if (items1 && item_id && (item_list_id || item_list_name || promotion_id || promotion_name)) {
     const firstClick = attributionType === 'firstClickAttribution';
-    const combined = firstClick ? items2.concat(items1) : items1.concat(items2);  // first vs. last click attribution
+    const combined = firstClick ? items2.concat(items1) : items1.concat(items2); 
 
     const mergedMap = {};
     for (let i = 0; i < items2.length; i++) {
       const oldRec = items2[i];
-      // shallow‐clone oldRec into a brand‐new object
       const clone = {};
-      const flds  = Object.keys(oldRec);
+      const flds  = Object.keys(oldRec || {});
       for (let j = 0; j < flds.length; j++) {
         const k = flds[j];
         clone[k] = oldRec[k];
@@ -100,26 +148,20 @@ if(data.variableType === 'attribution') {
       mergedMap[oldRec.item_id] = clone;
     }
 
-    // ================
-    // 2) MERGE ONLY the NEW `items1` records
-    // ================
     items1.forEach(rec1 => {
       const id = rec1.item_id;
       let tgt   = mergedMap[id];
       if (!tgt) {
-        // no seed existed, start fresh
         tgt = { item_id: id };
       }
 
       const isListEvent = hasValue(rec1.item_list_id) || hasValue(rec1.item_list_name);
-
-      // Item‐List group    
+      
       if (isListEvent) {
         if (attributionType === 'firstClickAttribution') {
           if (isMissing(tgt.item_list_id)) tgt.item_list_id = rec1.item_list_id;
           if (isMissing(tgt.item_list_name)) tgt.item_list_name = rec1.item_list_name;
         } else {
-          // overwrite even if rec1.[…] is null
           tgt.item_list_id = rec1.item_list_id;
           tgt.item_list_name = rec1.item_list_name;
         }
@@ -127,7 +169,6 @@ if(data.variableType === 'attribution') {
 
       const isPromoEvent = hasValue(rec1.promotion_id) || hasValue(rec1.promotion_name);
       
-      // Promotion group   
       if (isPromoEvent) {
         if (attributionType === 'firstClickAttribution') {
           if (isMissing(tgt.promotion_id)) tgt.promotion_id   = rec1.promotion_id;
@@ -142,7 +183,6 @@ if(data.variableType === 'attribution') {
         }
       }
       
-      // Location & index
       if (hasValue(rec1.location_id)) {
         if (attributionType === 'firstClickAttribution' ? isMissing(tgt.location_id) : true) {
           tgt.location_id = rec1.location_id;
@@ -154,13 +194,21 @@ if(data.variableType === 'attribution') {
         }
       }
       
-     mergedMap[id] = tgt;
+      if (customItemAttributeParameters.length > 0) {
+        customItemAttributeParameters.forEach(row => {
+          const p = row.parameterName;
+          if (hasValue(rec1[p])) {
+            if (attributionType === 'firstClickAttribution' ? isMissing(tgt[p]) : true) {
+              tgt[p] = rec1[p];
+            }
+          }
+        });
+      }
+      
+      mergedMap[id] = tgt;
     });
 
-    // ================
-    // 3) EXTRACT & LIMIT
-    // ================
-    let uniqueItems = Object.keys(mergedMap).map(function(k){ return mergedMap[k]; });
+    let uniqueItems = Object.keys(mergedMap || {}).map(function(k){ return mergedMap[k]; });
     if (limitItemsNumber) {
       uniqueItems = uniqueItems.slice(0, makeInteger(limitItemsNumber));
     }
@@ -169,6 +217,7 @@ if(data.variableType === 'attribution') {
       items: uniqueItems,
       promotion: promo2,
       search_term: searchTerm2,
+      custom_events: mergedCustomEvents,
       timestamp: timestamp
     };
     return jsonData ? JSON.stringify(extract) : extract;
@@ -179,7 +228,8 @@ if(data.variableType === 'attribution') {
     const promo = {creative_name: creative_name, creative_slot: creative_slot, promotion_id: promotion_id, promotion_name: promotion_name, location_id: location_id};
     
     const promoAttribution = attributionType === 'firstClickAttribution' && promo2 ? promo2 : promo;
-    let extract = {items: items2, promotion: promoAttribution, search_term: searchTerm2, timestamp: timestamp};
+    
+    let extract = {items: items2, promotion: promoAttribution, search_term: searchTerm2, custom_events: mergedCustomEvents, timestamp: timestamp};
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
@@ -187,7 +237,8 @@ if(data.variableType === 'attribution') {
   const searchTerm = data.siteSearchChecbox && hasValue(data.searchTerm) ? data.searchTerm : undefined;
   if (searchTerm) {
     const siteSearchttribution = attributionType === 'firstClickAttribution' && searchTerm2 ? searchTerm2 : searchTerm;
-    let extract = {search_term: siteSearchttribution, items: items2, promotion: promo2, timestamp: timestamp};
+    
+    let extract = {search_term: siteSearchttribution, items: items2, promotion: promo2, custom_events: mergedCustomEvents, timestamp: timestamp};
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
@@ -195,6 +246,7 @@ if(data.variableType === 'attribution') {
 else if (data.variableType === 'output') {
   let output;
   const param = data.outputDropDown;
+  
   if (param === 'promotion_id') {
     output = promo2 ? promo2.promotion_id : undefined;
   } else if (param === 'promotion_name') {
@@ -207,11 +259,29 @@ else if (data.variableType === 'output') {
     output = promo2 ? promo2.location_id : undefined;
   } else if (param === 'search_term') {
     output = searchTerm2 ? searchTerm2 : undefined;
+    
+  } else if (param === 'custom_event') {
+    const requestedKey = data.customEventOutputKey;
+    output = (customEvents2 && requestedKey) ? customEvents2[requestedKey] : undefined;
+
+  } else if (param === 'all_custom_events') {
+    output = customEvents2 ? customEvents2 : undefined;
+    
   } else if (param === 'items' && items) {
     items.forEach(item => {
       if(data.itemSearchTerm && searchTerm2 ) {
         item.search_term = searchTerm2;
       }
+      
+      if (data.itemCustomEvents) {
+        const ceKeys = Object.keys(customEvents2 || {});
+        if (ceKeys.length > 0) {
+          ceKeys.forEach(k => {
+            item[k] = item[k] || customEvents2[k] || undefined;
+          });
+        }
+      }
+
       items2.forEach(item2 => {
         if (item.item_id === item2.item_id) {
           item.item_list_id = item.item_list_id || item2.item_list_id || undefined;
@@ -222,6 +292,15 @@ else if (data.variableType === 'output') {
           item.promotion_name = item.promotion_name || item2.promotion_name || undefined;
           item.location_id = item.location_id || item2.location_id || undefined;
           item.index = item.index || item2.index || undefined;
+          
+          const storedKeys = Object.keys(item2 || {});
+          const standardKeys = ['item_id', 'item_list_id', 'item_list_name', 'creative_name', 'creative_slot', 'promotion_id', 'promotion_name', 'location_id', 'index'];
+          
+          storedKeys.forEach(k => {
+            if (standardKeys.indexOf(k) === -1) {
+               item[k] = item[k] || item2[k] || undefined;
+            }
+          });
         }
     });
   });
@@ -237,10 +316,4 @@ else if (data.variableType === 'output') {
     }
   }
   return output;
-}
-
-if(data.deleteAttribution === true && event_name === 'purchase') {
-  let extract = {search_term:undefined,items:[{item_id:"helper_id"}],promotion:undefined,timestamp:timestamp};
-      extract = jsonData && extract ? JSON.stringify(extract) : extract;
-        return extract;
 }

@@ -3,6 +3,8 @@
 
 This Variable Template for **GTM (Web)** makes it possible to attribute **GA4 Item List, Promotion & Search Term** to revenue or ecommerce Events (ex. purchase) & Items:
 
+**Update**: Any **Item & Event scoped parameter** can now be attributed.
+
 * Last Click Attribution
 * First Click Attribution
 * Reset/delete Attribution Data after Purchase
@@ -25,22 +27,13 @@ A similar Variable [do also exist for **Server-side GTM**](https://github.com/gt
 
 In the following documentation, **Local Storage** will be used to handle the attribution.
 
-## Quick Setup
-
-1. Create a new Workspace in GTM
-2. Import [**GTM-container.json**](GTM-container.json) to this Workspace
-    * Choose an import option: Merge
-        * Rename conflicting tags, triggers and variables.
-3. Adjust the imported **GA4 Tags** to fit your setup
-4. Other adjustments is up to you. You will maybe have to clean up conflicting Tags, Variables and Triggers.
-
-## Manual Setup
+# GTM Setup
 Install the following GTM (Web) Templates:
 * GA4 - Item List & Promotion Attribution (this Variable Template)
 *	[Local Storage Interact](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/gtm-local-storage-interact) Tag
 * [Local Storage Checker](https://tagmanager.google.com/gallery/#/owners/gtm-templates-anto-hed/templates/local-storage-checker) Variable
 
-### Create Variables
+## Create Variables
 We must create some Variables. Suggested Variable names are listed below, and are also used throughout the documentation.
 *	ecom - attribution time - minutes - C
 *	ecom - items - item_list & promotion - LSC
@@ -73,21 +66,24 @@ For some unknown reason, this Variable doesn't allow any Key to be used without 
 ### ecom - items - item_list & promotion - extract - CT
 Select the [**GA4 Ecommerce – Item List & Promotion Attribution**](template.tpl) Variable (this Template). This variable will **extract Item List & Promotion data** from GA4 Ecommerce and create the attribution. With other words, attribution happens at collection time.
 
-*	**Variable Type:** Extract Item Lists & Promotion for Attribution
-* Data Sources
+* **Variable Type:** Extract Item Lists & Promotion for Attribution
+* **Data Sources**
   * **Read GA4 Ecommerce data from Variable:** Tick this box if you need to read GA4 Ecommerce data from a Variable.
   * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
-* Attribution
+* **Attribution**
   * **Delete Attribution Data after Purchase:** Tick this box to delete/reset attribution data after a purchase has happened.
     * You only need this setting for the Variable that attribute Items. Not necessary for Event-level attribution Variables.
   * **Custom Attribution Time:** Tick this box if you are using **Custom Attribution Time**
     * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
   * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
-    * This setting uses **GA4 Session** as attribution time. GA4 Session value can be found in the **\_ga_\<container-id\>** cookie, and **Measurement ID** is used to get information from that cookie.
+    * This setting uses **GA4 Session** as attribution time. GA4 Session is extracted from the **AnalyticsStorage API**.
   * **Attribution Type:** Select Last or First Click Attribution
-* Site Search
+* **Site Search**
   * **Search Term:** Insert Variable that contains **search_term** value, ex. **{{search_term - Query}}**.
-* Other Settings
+* **Custom Item & Event Parameter Attribution**
+  * Any Item & Event Parameter can be attributed.
+  * Add parameters you want to attribute as shown in the image below.
+* **Other Settings**
   * **Handle data as string:** This will save attribution data as a string. Tick this box with this setup.
   * **Limit Items:** This will limit number of Items stored. You should probably limit number of items, but that is up to you. You can store up to 5MB in Local Storage.
 
@@ -101,11 +97,12 @@ Select the **GA4 Ecommerce – Item List & Promotion Attribution Variable** (thi
 
 * **Variable Type:** Return Attributed Output
 * **Output:** Items
+* **Remove null or empty values from Items:** Check this box if your implementation have Item Dimensions with null, "null", "undefined" or empty values.
 * **Add Search Terms To Items:** If you tick this checkbox, **search_term** will be added to **items**. This makes it easier to report search_term related to items. You must create an **Item scoped Dimension** in GA4.
   * This selection is only available for **Items**
-* **Remove null or empty values from Items:** Check this box if your implementation have Item Dimensions with null, "null", "undefined" or empty values.
+* **Add Custom Event Parameters to Items:** If you tick this checkbox, **custom_event_param** will be added to **items**. You must create an **Item scoped Dimension** in GA4.
 * **Second Data Source:** {{ecom - item_list & promotion - Local Storage}}
-* Attribution
+*  **Attribution **
   * **Custom Attribution Time** Tick this box if you are using **Custom Attribution Time**
      * **Attribution Time in Minutes:** {{ecom - attribution time - minutes - C}}
    * **Measurement ID:** Insert the same **GA4 ID** as you are using in the **GA4 Configuration Tag**. Note: This option is not visible if you have chosen **Custom Attribution Time**
@@ -124,6 +121,7 @@ In addition, you must create **Promotion & Search Term Variables** using the sam
 | ecom - promo - promotion_id - merge - CT | Promotion ID |	
 | ecom - promo - promotion_name - merge - CT | Promotion Name |	
 | ecom - search_term - merge - CT | Search Term |	
+| ecom - event_custom_param - merge - CT | Add Custom Event Parameters if relevant |	
 
 ## Trigger
 ### ecom - Attribute Events - Item List & Promotion - CE
@@ -180,6 +178,7 @@ The following Parameters should be changed in the Tags with those Events:
 | creative_slot | {{ecom - promo - creative_slot - merge - CT}} | If Promotion without Items is implemented |
 | location_id | {{ecom - location_id - merge - CT}} | If Promotion without Items is implemented |
 | search_term | {{ecom - search_term - merge - CT}} | If you want to attribute search_term |
+| event_custom_param | {{ecom - event_custom_param - merge - CT}} | If you want to attribute Custom Event Parameter(s) |
 
 ![GA4 Tag - Parameters](images/Tag-GA4-Tag.png)
 
