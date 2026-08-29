@@ -7,7 +7,6 @@ const JSON = require('JSON');
 const Object = require('Object');
 const readAnalyticsStorage = require('readAnalyticsStorage');
 const analyticsStorageData = readAnalyticsStorage();
-const log = require('logToConsole');
 
 const jsonData = data.jsonData;
 const secondDataSource = data.secondDataSource && typeof data.secondDataSource === 'string' ? JSON.parse(data.secondDataSource) : data.secondDataSource || undefined;
@@ -17,7 +16,6 @@ const items = ecom ? ecom.items : undefined;
 let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}];
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
 let searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;
-
 let customEvents2 = secondDataSource && secondDataSource.custom_events ? secondDataSource.custom_events : {};
 
 const measurementId = data.measurementId;
@@ -72,7 +70,7 @@ if(data.variableType === 'attribution') {
   if (customEventAttributeParameters.length > 0) {
     customEventAttributeParameters.forEach(row => {
       const pName = row.parameterName;
-      const pVal = (ecom && hasValue(ecom[pName])) ? ecom[pName] : dataLayer(pName, 2);
+      const pVal = row.parameterValue; // FIX: Reading from UI mapping variable
       if (hasValue(pVal)) {
         currentCustomEvents[pName] = pVal;
       }
@@ -80,7 +78,6 @@ if(data.variableType === 'attribution') {
   }
 
   let mergedCustomEvents = {};
-
   const oldCeKeys = Object.keys(customEvents2 || {});
   oldCeKeys.forEach(k => { mergedCustomEvents[k] = customEvents2[k]; });
   
@@ -242,6 +239,18 @@ if(data.variableType === 'attribution') {
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
+
+  const hasNewCustomEvents = Object.keys(currentCustomEvents || {}).length > 0;
+  if (hasNewCustomEvents) {
+    let extract = {
+      items: items2, 
+      promotion: promo2, 
+      search_term: searchTerm2, 
+      custom_events: mergedCustomEvents, 
+      timestamp: timestamp
+    };
+    return jsonData ? JSON.stringify(extract) : extract;
+  }
 }
 else if (data.variableType === 'output') {
   let output;
@@ -282,6 +291,8 @@ else if (data.variableType === 'output') {
         }
       }
 
+      const standardKeys = ['item_id', 'item_list_id', 'item_list_name', 'creative_name', 'creative_slot', 'promotion_id', 'promotion_name', 'location_id', 'index'];
+      
       items2.forEach(item2 => {
         if (item.item_id === item2.item_id) {
           item.item_list_id = item.item_list_id || item2.item_list_id || undefined;
@@ -294,7 +305,6 @@ else if (data.variableType === 'output') {
           item.index = item.index || item2.index || undefined;
           
           const storedKeys = Object.keys(item2 || {});
-          const standardKeys = ['item_id', 'item_list_id', 'item_list_name', 'creative_name', 'creative_slot', 'promotion_id', 'promotion_name', 'location_id', 'index'];
           
           storedKeys.forEach(k => {
             if (standardKeys.indexOf(k) === -1) {

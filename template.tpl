@@ -14,7 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "GA4 - Item List \u0026 Promotion Attribution",
-  "description": "Attribute GA4 Item List, Promotion or Search Term to revenue \u0026 ecommerce Events. This Template makes this possible by using ex. Local Storage as a \"helper\". Last \u0026 First Click Attribution supported.",
+  "description": "Attribute GA4 Item Lists, Promotions, Search Terms, and Custom Parameters to ecommerce events and revenue using Local Storage/Cookie. Last \u0026 First Click Attribution supported.",
   "categories": [
     "ANALYTICS",
     "UTILITY",
@@ -386,9 +386,17 @@ ___TEMPLATE_PARAMETERS___
                     "defaultValue": "",
                     "displayName": "Parameter Name",
                     "name": "parameterName",
-                    "type": "TEXT"
+                    "type": "TEXT",
+                    "isUnique": true,
+                    "valueValidators": [
+                      {
+                        "type": "NON_EMPTY"
+                      }
+                    ]
                   }
-                ]
+                ],
+                "newRowButtonText": "Add Custom Item Parameter",
+                "help": "Add the exact keys of any custom item-scoped parameters present in your incoming ecommerce items array that you want to store and attribute (e.g., \u003cb\u003eitem_variant_id\u003c/b\u003e, \u003cb\u003eitem_color\u003c/b\u003e). \u003cbr /\u003e\u003cbr /\u003e Enter the parameter key exactly as it appears inside your incoming items array."
               },
               {
                 "type": "SIMPLE_TABLE",
@@ -399,9 +407,30 @@ ___TEMPLATE_PARAMETERS___
                     "defaultValue": "",
                     "displayName": "Parameter Name",
                     "name": "parameterName",
-                    "type": "TEXT"
+                    "type": "TEXT",
+                    "isUnique": true,
+                    "valueValidators": [
+                      {
+                        "type": "NON_EMPTY"
+                      }
+                    ]
+                  },
+                  {
+                    "defaultValue": "",
+                    "displayName": "Parameter Value",
+                    "name": "parameterValue",
+                    "type": "SELECT",
+                    "selectItems": [],
+                    "macrosInSelect": true,
+                    "valueValidators": [
+                      {
+                        "type": "NON_EMPTY"
+                      }
+                    ]
                   }
-                ]
+                ],
+                "help": "Add any custom event-scoped parameters you want to store and attribute (e.g., \u003cb\u003esearch_category\u003c/b\u003e). You must define the parameter name and map its value using a GTM variable. \u003cbr /\u003e\u003cbr /\u003e \u003cb\u003eParameter Name\u003c/b\u003e \u003cbr /\u003e Enter the exact name of the parameter as you want it to appear in your final output (e.g., \u003cb\u003esearch_category\u003c/b\u003e). \u003cbr /\u003e\u003cbr /\u003e \u003cb\u003eParameter Value\u003c/b\u003e \u003cbr /\u003e Select the GTM variable from the dropdown that contains this value (e.g., \u003cb\u003e{{search_category - Event Data}}\u003c/b\u003e).",
+                "newRowButtonText": "Add Custom Event Parameter"
               }
             ],
             "enablingConditions": [
@@ -489,7 +518,6 @@ const JSON = require('JSON');
 const Object = require('Object');
 const readAnalyticsStorage = require('readAnalyticsStorage');
 const analyticsStorageData = readAnalyticsStorage();
-const log = require('logToConsole');
 
 const jsonData = data.jsonData;
 const secondDataSource = data.secondDataSource && typeof data.secondDataSource === 'string' ? JSON.parse(data.secondDataSource) : data.secondDataSource || undefined;
@@ -499,8 +527,6 @@ const items = ecom ? ecom.items : undefined;
 let items2 = secondDataSource ? secondDataSource.items : [{item_id:"helper_id"}];
 let promo2 = secondDataSource ? secondDataSource.promotion : undefined;
 let searchTerm2 = secondDataSource ? secondDataSource.search_term : undefined;
-
-// FIX: Default to an empty object
 let customEvents2 = secondDataSource && secondDataSource.custom_events ? secondDataSource.custom_events : {};
 
 const measurementId = data.measurementId;
@@ -555,7 +581,7 @@ if(data.variableType === 'attribution') {
   if (customEventAttributeParameters.length > 0) {
     customEventAttributeParameters.forEach(row => {
       const pName = row.parameterName;
-      const pVal = (ecom && hasValue(ecom[pName])) ? ecom[pName] : dataLayer(pName, 2);
+      const pVal = row.parameterValue; // FIX: Reading from UI mapping variable
       if (hasValue(pVal)) {
         currentCustomEvents[pName] = pVal;
       }
@@ -563,7 +589,6 @@ if(data.variableType === 'attribution') {
   }
 
   let mergedCustomEvents = {};
-
   const oldCeKeys = Object.keys(customEvents2 || {});
   oldCeKeys.forEach(k => { mergedCustomEvents[k] = customEvents2[k]; });
   
@@ -725,6 +750,18 @@ if(data.variableType === 'attribution') {
       extract = jsonData && extract ? JSON.stringify(extract) : extract;
         return extract;
   }
+
+  const hasNewCustomEvents = Object.keys(currentCustomEvents || {}).length > 0;
+  if (hasNewCustomEvents) {
+    let extract = {
+      items: items2, 
+      promotion: promo2, 
+      search_term: searchTerm2, 
+      custom_events: mergedCustomEvents, 
+      timestamp: timestamp
+    };
+    return jsonData ? JSON.stringify(extract) : extract;
+  }
 }
 else if (data.variableType === 'output') {
   let output;
@@ -765,6 +802,8 @@ else if (data.variableType === 'output') {
         }
       }
 
+      const standardKeys = ['item_id', 'item_list_id', 'item_list_name', 'creative_name', 'creative_slot', 'promotion_id', 'promotion_name', 'location_id', 'index'];
+      
       items2.forEach(item2 => {
         if (item.item_id === item2.item_id) {
           item.item_list_id = item.item_list_id || item2.item_list_id || undefined;
@@ -777,7 +816,6 @@ else if (data.variableType === 'output') {
           item.index = item.index || item2.index || undefined;
           
           const storedKeys = Object.keys(item2 || {});
-          const standardKeys = ['item_id', 'item_list_id', 'item_list_name', 'creative_name', 'creative_slot', 'promotion_id', 'promotion_name', 'location_id', 'index'];
           
           storedKeys.forEach(k => {
             if (standardKeys.indexOf(k) === -1) {
@@ -816,31 +854,29 @@ ___WEB_PERMISSIONS___
           "key": "allowedKeys",
           "value": {
             "type": 1,
-            "string": "any"
+            "string": "specific"
+          }
+        },
+        {
+          "key": "keyPatterns",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "event"
+              },
+              {
+                "type": 1,
+                "string": "ecommerce"
+              }
+            ]
           }
         }
       ]
     },
     "clientAnnotations": {
       "isEditedByUser": true
-    },
-    "isRequired": true
-  },
-  {
-    "instance": {
-      "key": {
-        "publicId": "logging",
-        "versionId": "1"
-      },
-      "param": [
-        {
-          "key": "environments",
-          "value": {
-            "type": 1,
-            "string": "debug"
-          }
-        }
-      ]
     },
     "isRequired": true
   },
