@@ -2,8 +2,8 @@ homepage: "https://github.com/gtm-templates-knowit-experience/"
 documentation: "https://github.com/gtm-templates-knowit-experience/gtm-ga4-ecom-item-list-promo-attribution"
 versions:
   # Latest version
-  - sha: c4a15fbcd24bcfcda5bea44a77fd82af3d920422
-    changeNotes: Any Item & Event scoped parameter can now be attributed.
+  - sha: 4d8a43aecf895fd9d7b1cdc27e6f7cb23c142468
+    changeNotes: Updated Data Layer read permissions to specific keys and rebuilt Custom Event Parameter attribution logic.
   # Older Versions
   - sha: 45c641bb01653dea171dab812d6b78ca10e4888c
     changeNotes: Switched to using readAnalyticsStorage API instead of reading GA cookie.
